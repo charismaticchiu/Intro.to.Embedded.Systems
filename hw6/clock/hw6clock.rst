@@ -1,0 +1,853 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.4.0/*rc1*/ #8960 (Mar 15 2014) (MINGW32)
+                                      4 ; This file was generated Mon Apr 28 13:22:28 2014
+                                      5 ;--------------------------------------------------------
+                                      6 	.module hw6clock
+                                      7 	.optsdcc -mmcs51 --model-small
+                                      8 	
+                                      9 ;--------------------------------------------------------
+                                     10 ; Public variables in this module
+                                     11 ;--------------------------------------------------------
+                                     12 	.globl _Main
+                                     13 	.globl _CY
+                                     14 	.globl _AC
+                                     15 	.globl _F0
+                                     16 	.globl _RS1
+                                     17 	.globl _RS0
+                                     18 	.globl _OV
+                                     19 	.globl _F1
+                                     20 	.globl _P
+                                     21 	.globl _PS
+                                     22 	.globl _PT1
+                                     23 	.globl _PX1
+                                     24 	.globl _PT0
+                                     25 	.globl _PX0
+                                     26 	.globl _RD
+                                     27 	.globl _WR
+                                     28 	.globl _T1
+                                     29 	.globl _T0
+                                     30 	.globl _INT1
+                                     31 	.globl _INT0
+                                     32 	.globl _TXD
+                                     33 	.globl _RXD
+                                     34 	.globl _P3_7
+                                     35 	.globl _P3_6
+                                     36 	.globl _P3_5
+                                     37 	.globl _P3_4
+                                     38 	.globl _P3_3
+                                     39 	.globl _P3_2
+                                     40 	.globl _P3_1
+                                     41 	.globl _P3_0
+                                     42 	.globl _EA
+                                     43 	.globl _ES
+                                     44 	.globl _ET1
+                                     45 	.globl _EX1
+                                     46 	.globl _ET0
+                                     47 	.globl _EX0
+                                     48 	.globl _P2_7
+                                     49 	.globl _P2_6
+                                     50 	.globl _P2_5
+                                     51 	.globl _P2_4
+                                     52 	.globl _P2_3
+                                     53 	.globl _P2_2
+                                     54 	.globl _P2_1
+                                     55 	.globl _P2_0
+                                     56 	.globl _SM0
+                                     57 	.globl _SM1
+                                     58 	.globl _SM2
+                                     59 	.globl _REN
+                                     60 	.globl _TB8
+                                     61 	.globl _RB8
+                                     62 	.globl _TI
+                                     63 	.globl _RI
+                                     64 	.globl _P1_7
+                                     65 	.globl _P1_6
+                                     66 	.globl _P1_5
+                                     67 	.globl _P1_4
+                                     68 	.globl _P1_3
+                                     69 	.globl _P1_2
+                                     70 	.globl _P1_1
+                                     71 	.globl _P1_0
+                                     72 	.globl _TF1
+                                     73 	.globl _TR1
+                                     74 	.globl _TF0
+                                     75 	.globl _TR0
+                                     76 	.globl _IE1
+                                     77 	.globl _IT1
+                                     78 	.globl _IE0
+                                     79 	.globl _IT0
+                                     80 	.globl _P0_7
+                                     81 	.globl _P0_6
+                                     82 	.globl _P0_5
+                                     83 	.globl _P0_4
+                                     84 	.globl _P0_3
+                                     85 	.globl _P0_2
+                                     86 	.globl _P0_1
+                                     87 	.globl _P0_0
+                                     88 	.globl _B
+                                     89 	.globl _ACC
+                                     90 	.globl _PSW
+                                     91 	.globl _IP
+                                     92 	.globl _P3
+                                     93 	.globl _IE
+                                     94 	.globl _P2
+                                     95 	.globl _SBUF
+                                     96 	.globl _SCON
+                                     97 	.globl _P1
+                                     98 	.globl _TH1
+                                     99 	.globl _TH0
+                                    100 	.globl _TL1
+                                    101 	.globl _TL0
+                                    102 	.globl _TMOD
+                                    103 	.globl _TCON
+                                    104 	.globl _PCON
+                                    105 	.globl _DPH
+                                    106 	.globl _DPL
+                                    107 	.globl _SP
+                                    108 	.globl _P0
+                                    109 	.globl _tick
+                                    110 	.globl _displayBuf
+                                    111 	.globl _timeBuf
+                                    112 	.globl _InitTimer
+                                    113 	.globl _InitLCD
+                                    114 	.globl _IncrTime
+                                    115 	.globl _Refresh
+                                    116 	.globl _PollTimer
+                                    117 	.globl _HandleRollover
+                                    118 	.globl _IRWRITE
+                                    119 	.globl _functionSet
+                                    120 	.globl _setDdRamAddress
+                                    121 	.globl _sendChar
+                                    122 	.globl _sendString
+                                    123 	.globl _delay
+                                    124 ;--------------------------------------------------------
+                                    125 ; special function registers
+                                    126 ;--------------------------------------------------------
+                                    127 	.area RSEG    (ABS,DATA)
+      000000                        128 	.org 0x0000
+                           000080   129 _P0	=	0x0080
+                           000081   130 _SP	=	0x0081
+                           000082   131 _DPL	=	0x0082
+                           000083   132 _DPH	=	0x0083
+                           000087   133 _PCON	=	0x0087
+                           000088   134 _TCON	=	0x0088
+                           000089   135 _TMOD	=	0x0089
+                           00008A   136 _TL0	=	0x008a
+                           00008B   137 _TL1	=	0x008b
+                           00008C   138 _TH0	=	0x008c
+                           00008D   139 _TH1	=	0x008d
+                           000090   140 _P1	=	0x0090
+                           000098   141 _SCON	=	0x0098
+                           000099   142 _SBUF	=	0x0099
+                           0000A0   143 _P2	=	0x00a0
+                           0000A8   144 _IE	=	0x00a8
+                           0000B0   145 _P3	=	0x00b0
+                           0000B8   146 _IP	=	0x00b8
+                           0000D0   147 _PSW	=	0x00d0
+                           0000E0   148 _ACC	=	0x00e0
+                           0000F0   149 _B	=	0x00f0
+                                    150 ;--------------------------------------------------------
+                                    151 ; special function bits
+                                    152 ;--------------------------------------------------------
+                                    153 	.area RSEG    (ABS,DATA)
+      000000                        154 	.org 0x0000
+                           000080   155 _P0_0	=	0x0080
+                           000081   156 _P0_1	=	0x0081
+                           000082   157 _P0_2	=	0x0082
+                           000083   158 _P0_3	=	0x0083
+                           000084   159 _P0_4	=	0x0084
+                           000085   160 _P0_5	=	0x0085
+                           000086   161 _P0_6	=	0x0086
+                           000087   162 _P0_7	=	0x0087
+                           000088   163 _IT0	=	0x0088
+                           000089   164 _IE0	=	0x0089
+                           00008A   165 _IT1	=	0x008a
+                           00008B   166 _IE1	=	0x008b
+                           00008C   167 _TR0	=	0x008c
+                           00008D   168 _TF0	=	0x008d
+                           00008E   169 _TR1	=	0x008e
+                           00008F   170 _TF1	=	0x008f
+                           000090   171 _P1_0	=	0x0090
+                           000091   172 _P1_1	=	0x0091
+                           000092   173 _P1_2	=	0x0092
+                           000093   174 _P1_3	=	0x0093
+                           000094   175 _P1_4	=	0x0094
+                           000095   176 _P1_5	=	0x0095
+                           000096   177 _P1_6	=	0x0096
+                           000097   178 _P1_7	=	0x0097
+                           000098   179 _RI	=	0x0098
+                           000099   180 _TI	=	0x0099
+                           00009A   181 _RB8	=	0x009a
+                           00009B   182 _TB8	=	0x009b
+                           00009C   183 _REN	=	0x009c
+                           00009D   184 _SM2	=	0x009d
+                           00009E   185 _SM1	=	0x009e
+                           00009F   186 _SM0	=	0x009f
+                           0000A0   187 _P2_0	=	0x00a0
+                           0000A1   188 _P2_1	=	0x00a1
+                           0000A2   189 _P2_2	=	0x00a2
+                           0000A3   190 _P2_3	=	0x00a3
+                           0000A4   191 _P2_4	=	0x00a4
+                           0000A5   192 _P2_5	=	0x00a5
+                           0000A6   193 _P2_6	=	0x00a6
+                           0000A7   194 _P2_7	=	0x00a7
+                           0000A8   195 _EX0	=	0x00a8
+                           0000A9   196 _ET0	=	0x00a9
+                           0000AA   197 _EX1	=	0x00aa
+                           0000AB   198 _ET1	=	0x00ab
+                           0000AC   199 _ES	=	0x00ac
+                           0000AF   200 _EA	=	0x00af
+                           0000B0   201 _P3_0	=	0x00b0
+                           0000B1   202 _P3_1	=	0x00b1
+                           0000B2   203 _P3_2	=	0x00b2
+                           0000B3   204 _P3_3	=	0x00b3
+                           0000B4   205 _P3_4	=	0x00b4
+                           0000B5   206 _P3_5	=	0x00b5
+                           0000B6   207 _P3_6	=	0x00b6
+                           0000B7   208 _P3_7	=	0x00b7
+                           0000B0   209 _RXD	=	0x00b0
+                           0000B1   210 _TXD	=	0x00b1
+                           0000B2   211 _INT0	=	0x00b2
+                           0000B3   212 _INT1	=	0x00b3
+                           0000B4   213 _T0	=	0x00b4
+                           0000B5   214 _T1	=	0x00b5
+                           0000B6   215 _WR	=	0x00b6
+                           0000B7   216 _RD	=	0x00b7
+                           0000B8   217 _PX0	=	0x00b8
+                           0000B9   218 _PT0	=	0x00b9
+                           0000BA   219 _PX1	=	0x00ba
+                           0000BB   220 _PT1	=	0x00bb
+                           0000BC   221 _PS	=	0x00bc
+                           0000D0   222 _P	=	0x00d0
+                           0000D1   223 _F1	=	0x00d1
+                           0000D2   224 _OV	=	0x00d2
+                           0000D3   225 _RS0	=	0x00d3
+                           0000D4   226 _RS1	=	0x00d4
+                           0000D5   227 _F0	=	0x00d5
+                           0000D6   228 _AC	=	0x00d6
+                           0000D7   229 _CY	=	0x00d7
+                                    230 ;--------------------------------------------------------
+                                    231 ; overlayable register banks
+                                    232 ;--------------------------------------------------------
+                                    233 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        234 	.ds 8
+                                    235 ;--------------------------------------------------------
+                                    236 ; internal ram data
+                                    237 ;--------------------------------------------------------
+                                    238 	.area DSEG    (DATA)
+      000030                        239 _timeBuf::
+      000030                        240 	.ds 3
+      000033                        241 _displayBuf::
+      000033                        242 	.ds 6
+                                    243 ;--------------------------------------------------------
+                                    244 ; overlayable items in internal ram 
+                                    245 ;--------------------------------------------------------
+                                    246 	.area	OSEG    (OVR,DATA)
+                                    247 	.area	OSEG    (OVR,DATA)
+                                    248 ;--------------------------------------------------------
+                                    249 ; indirectly addressable internal ram data
+                                    250 ;--------------------------------------------------------
+                                    251 	.area ISEG    (DATA)
+                                    252 ;--------------------------------------------------------
+                                    253 ; absolute internal ram data
+                                    254 ;--------------------------------------------------------
+                                    255 	.area IABS    (ABS,DATA)
+                                    256 	.area IABS    (ABS,DATA)
+                                    257 ;--------------------------------------------------------
+                                    258 ; bit data
+                                    259 ;--------------------------------------------------------
+                                    260 	.area BSEG    (BIT)
+      000000                        261 _tick::
+      000000                        262 	.ds 1
+                                    263 ;--------------------------------------------------------
+                                    264 ; paged external ram data
+                                    265 ;--------------------------------------------------------
+                                    266 	.area PSEG    (PAG,XDATA)
+                                    267 ;--------------------------------------------------------
+                                    268 ; external ram data
+                                    269 ;--------------------------------------------------------
+                                    270 	.area XSEG    (XDATA)
+                                    271 ;--------------------------------------------------------
+                                    272 ; absolute external ram data
+                                    273 ;--------------------------------------------------------
+                                    274 	.area XABS    (ABS,XDATA)
+                                    275 ;--------------------------------------------------------
+                                    276 ; external initialized ram data
+                                    277 ;--------------------------------------------------------
+                                    278 	.area XISEG   (XDATA)
+                                    279 	.area HOME    (CODE)
+                                    280 	.area GSINIT0 (CODE)
+                                    281 	.area GSINIT1 (CODE)
+                                    282 	.area GSINIT2 (CODE)
+                                    283 	.area GSINIT3 (CODE)
+                                    284 	.area GSINIT4 (CODE)
+                                    285 	.area GSINIT5 (CODE)
+                                    286 	.area GSINIT  (CODE)
+                                    287 	.area GSFINAL (CODE)
+                                    288 	.area CSEG    (CODE)
+                                    289 ;--------------------------------------------------------
+                                    290 ; global & static initialisations
+                                    291 ;--------------------------------------------------------
+                                    292 	.area HOME    (CODE)
+                                    293 	.area GSINIT  (CODE)
+                                    294 	.area GSFINAL (CODE)
+                                    295 	.area GSINIT  (CODE)
+                                    296 ;	hw6clock.c:18: char timeBuf[3] = {55,0,0};
+      000000 75 30 37         [24]  297 	mov	_timeBuf,#0x37
+      000003 75 31 00         [24]  298 	mov	(_timeBuf + 0x0001),#0x00
+      000006 75 32 00         [24]  299 	mov	(_timeBuf + 0x0002),#0x00
+                                    300 ;	hw6clock.c:19: char displayBuf[6] = {0,0,0,0,0,0};
+      000009 75 33 00         [24]  301 	mov	_displayBuf,#0x00
+      00000C 75 34 00         [24]  302 	mov	(_displayBuf + 0x0001),#0x00
+      00000F 75 35 00         [24]  303 	mov	(_displayBuf + 0x0002),#0x00
+      000012 75 36 00         [24]  304 	mov	(_displayBuf + 0x0003),#0x00
+      000015 75 37 00         [24]  305 	mov	(_displayBuf + 0x0004),#0x00
+      000018 75 38 00         [24]  306 	mov	(_displayBuf + 0x0005),#0x00
+                                    307 ;--------------------------------------------------------
+                                    308 ; Home
+                                    309 ;--------------------------------------------------------
+                                    310 	.area HOME    (CODE)
+                                    311 	.area HOME    (CODE)
+                                    312 ;--------------------------------------------------------
+                                    313 ; code
+                                    314 ;--------------------------------------------------------
+                                    315 	.area CSEG    (CODE)
+                                    316 ;------------------------------------------------------------
+                                    317 ;Allocation info for local variables in function 'Main'
+                                    318 ;------------------------------------------------------------
+                                    319 ;	hw6clock.c:35: void Main(){
+                                    320 ;	-----------------------------------------
+                                    321 ;	 function Main
+                                    322 ;	-----------------------------------------
+      00001B                        323 _Main:
+                           000007   324 	ar7 = 0x07
+                           000006   325 	ar6 = 0x06
+                           000005   326 	ar5 = 0x05
+                           000004   327 	ar4 = 0x04
+                           000003   328 	ar3 = 0x03
+                           000002   329 	ar2 = 0x02
+                           000001   330 	ar1 = 0x01
+                           000000   331 	ar0 = 0x00
+                                    332 ;	hw6clock.c:36: tick=0;	
+      00001B C2 00            [12]  333 	clr	_tick
+                                    334 ;	hw6clock.c:37: InitLCD();
+      00001D 12 00 36         [24]  335 	lcall	_InitLCD
+                                    336 ;	hw6clock.c:38: InitTimer();	
+      000020 12 00 2D         [24]  337 	lcall	_InitTimer
+                                    338 ;	hw6clock.c:39: while (1) {
+      000023                        339 00102$:
+                                    340 ;	hw6clock.c:40: PollTimer();
+      000023 12 01 AB         [24]  341 	lcall	_PollTimer
+                                    342 ;	hw6clock.c:41: IncrTime();			
+      000026 12 00 4E         [24]  343 	lcall	_IncrTime
+                                    344 ;	hw6clock.c:42: tick=0;		
+      000029 C2 00            [12]  345 	clr	_tick
+      00002B 80 F6            [24]  346 	sjmp	00102$
+                                    347 ;------------------------------------------------------------
+                                    348 ;Allocation info for local variables in function 'InitTimer'
+                                    349 ;------------------------------------------------------------
+                                    350 ;	hw6clock.c:45: void InitTimer(){
+                                    351 ;	-----------------------------------------
+                                    352 ;	 function InitTimer
+                                    353 ;	-----------------------------------------
+      00002D                        354 _InitTimer:
+                                    355 ;	hw6clock.c:46: TMOD = 0x02;//mode 2
+      00002D 75 89 02         [24]  356 	mov	_TMOD,#0x02
+                                    357 ;	hw6clock.c:47: TH0 = 156;//256-100=156
+      000030 75 8C 9C         [24]  358 	mov	_TH0,#0x9C
+                                    359 ;	hw6clock.c:48: TR0 = 1;
+      000033 D2 8C            [12]  360 	setb	_TR0
+      000035 22               [24]  361 	ret
+                                    362 ;------------------------------------------------------------
+                                    363 ;Allocation info for local variables in function 'InitLCD'
+                                    364 ;------------------------------------------------------------
+                                    365 ;	hw6clock.c:50: void InitLCD(){
+                                    366 ;	-----------------------------------------
+                                    367 ;	 function InitLCD
+                                    368 ;	-----------------------------------------
+      000036                        369 _InitLCD:
+                                    370 ;	hw6clock.c:51: functionSet();
+      000036 12 01 EB         [24]  371 	lcall	_functionSet
+                                    372 ;	hw6clock.c:53: IRWRITE(0x06);
+      000039 75 82 06         [24]  373 	mov	dpl,#0x06
+      00003C 12 01 D0         [24]  374 	lcall	_IRWRITE
+                                    375 ;	hw6clock.c:55: IRWRITE(0x0F);
+      00003F 75 82 0F         [24]  376 	mov	dpl,#0x0F
+      000042 12 01 D0         [24]  377 	lcall	_IRWRITE
+                                    378 ;	hw6clock.c:56: sendString("00:00:00");
+      000045 90 02 92         [24]  379 	mov	dptr,#___str_0
+      000048 75 F0 80         [24]  380 	mov	b,#0x80
+      00004B 02 02 46         [24]  381 	ljmp	_sendString
+                                    382 ;------------------------------------------------------------
+                                    383 ;Allocation info for local variables in function 'IncrTime'
+                                    384 ;------------------------------------------------------------
+                                    385 ;	hw6clock.c:58: void IncrTime(){
+                                    386 ;	-----------------------------------------
+                                    387 ;	 function IncrTime
+                                    388 ;	-----------------------------------------
+      00004E                        389 _IncrTime:
+                                    390 ;	hw6clock.c:59: timeBuf[0]++;
+      00004E E5 30            [12]  391 	mov	a,_timeBuf
+      000050 04               [12]  392 	inc	a
+      000051 F5 30            [12]  393 	mov	_timeBuf,a
+                                    394 ;	hw6clock.c:60: Refresh(2);
+      000053 75 82 02         [24]  395 	mov	dpl,#0x02
+      000056 12 00 8B         [24]  396 	lcall	_Refresh
+                                    397 ;	hw6clock.c:61: if(timeBuf[0] == 60){//sec->min
+      000059 74 3C            [12]  398 	mov	a,#0x3C
+      00005B B5 30 0E         [24]  399 	cjne	a,_timeBuf,00102$
+                                    400 ;	hw6clock.c:62: timeBuf[0] = 0;
+      00005E 75 30 00         [24]  401 	mov	_timeBuf,#0x00
+                                    402 ;	hw6clock.c:63: timeBuf[1]++;
+      000061 E5 31            [12]  403 	mov	a,(_timeBuf + 0x0001)
+      000063 04               [12]  404 	inc	a
+      000064 F5 31            [12]  405 	mov	(_timeBuf + 0x0001),a
+                                    406 ;	hw6clock.c:64: Refresh(4);
+      000066 75 82 04         [24]  407 	mov	dpl,#0x04
+      000069 12 00 8B         [24]  408 	lcall	_Refresh
+      00006C                        409 00102$:
+                                    410 ;	hw6clock.c:66: if(timeBuf[1] == 60){//min->hr
+      00006C 74 3C            [12]  411 	mov	a,#0x3C
+      00006E B5 31 0E         [24]  412 	cjne	a,(_timeBuf + 0x0001),00104$
+                                    413 ;	hw6clock.c:67: timeBuf[1] = 0;
+      000071 75 31 00         [24]  414 	mov	(_timeBuf + 0x0001),#0x00
+                                    415 ;	hw6clock.c:68: timeBuf[2]++;
+      000074 E5 32            [12]  416 	mov	a,(_timeBuf + 0x0002)
+      000076 04               [12]  417 	inc	a
+      000077 F5 32            [12]  418 	mov	(_timeBuf + 0x0002),a
+                                    419 ;	hw6clock.c:69: Refresh(5);
+      000079 75 82 05         [24]  420 	mov	dpl,#0x05
+      00007C 12 00 8B         [24]  421 	lcall	_Refresh
+      00007F                        422 00104$:
+                                    423 ;	hw6clock.c:71: if(timeBuf[2] == 24){//hr->day
+      00007F 74 18            [12]  424 	mov	a,#0x18
+      000081 B5 32 06         [24]  425 	cjne	a,(_timeBuf + 0x0002),00107$
+                                    426 ;	hw6clock.c:72: Refresh(6);
+      000084 75 82 06         [24]  427 	mov	dpl,#0x06
+      000087 02 00 8B         [24]  428 	ljmp	_Refresh
+      00008A                        429 00107$:
+      00008A 22               [24]  430 	ret
+                                    431 ;------------------------------------------------------------
+                                    432 ;Allocation info for local variables in function 'Refresh'
+                                    433 ;------------------------------------------------------------
+                                    434 ;carrybit                  Allocated to registers r7 
+                                    435 ;------------------------------------------------------------
+                                    436 ;	hw6clock.c:76: void Refresh(char carrybit){
+                                    437 ;	-----------------------------------------
+                                    438 ;	 function Refresh
+                                    439 ;	-----------------------------------------
+      00008B                        440 _Refresh:
+      00008B AF 82            [24]  441 	mov	r7,dpl
+                                    442 ;	hw6clock.c:77: displayBuf[0] = timeBuf[0]%10 +'0';//個位
+      00008D 75 F0 0A         [24]  443 	mov	b,#0x0a
+      000090 E5 30            [12]  444 	mov	a,_timeBuf
+      000092 C2 D5            [12]  445 	clr	F0
+      000094 30 E7 04         [24]  446 	jnb	acc.7,00126$
+      000097 D2 D5            [12]  447 	setb	F0
+      000099 F4               [12]  448 	cpl	a
+      00009A 04               [12]  449 	inc	a
+      00009B                        450 00126$:
+      00009B 84               [48]  451 	div	ab
+      00009C E5 F0            [12]  452 	mov	a,b
+      00009E 30 D5 02         [24]  453 	jnb	F0,00127$
+      0000A1 F4               [12]  454 	cpl	a
+      0000A2 04               [12]  455 	inc	a
+      0000A3                        456 00127$:
+      0000A3 24 30            [12]  457 	add	a,#0x30
+      0000A5 F5 33            [12]  458 	mov	_displayBuf,a
+                                    459 ;	hw6clock.c:78: displayBuf[1] = timeBuf[0]/10 +'0';//十位
+      0000A7 C2 D5            [12]  460 	clr	F0
+      0000A9 75 F0 0A         [24]  461 	mov	b,#0x0a
+      0000AC E5 30            [12]  462 	mov	a,_timeBuf
+      0000AE 30 E7 04         [24]  463 	jnb	acc.7,00128$
+      0000B1 B2 D5            [12]  464 	cpl	F0
+      0000B3 F4               [12]  465 	cpl	a
+      0000B4 04               [12]  466 	inc	a
+      0000B5                        467 00128$:
+      0000B5 84               [48]  468 	div	ab
+      0000B6 30 D5 02         [24]  469 	jnb	F0,00129$
+      0000B9 F4               [12]  470 	cpl	a
+      0000BA 04               [12]  471 	inc	a
+      0000BB                        472 00129$:
+      0000BB 24 30            [12]  473 	add	a,#0x30
+      0000BD F5 34            [12]  474 	mov	(_displayBuf + 0x0001),a
+                                    475 ;	hw6clock.c:79: displayBuf[2] = timeBuf[1]%10 +'0';
+      0000BF 75 F0 0A         [24]  476 	mov	b,#0x0a
+      0000C2 E5 31            [12]  477 	mov	a,(_timeBuf + 0x0001)
+      0000C4 C2 D5            [12]  478 	clr	F0
+      0000C6 30 E7 04         [24]  479 	jnb	acc.7,00130$
+      0000C9 D2 D5            [12]  480 	setb	F0
+      0000CB F4               [12]  481 	cpl	a
+      0000CC 04               [12]  482 	inc	a
+      0000CD                        483 00130$:
+      0000CD 84               [48]  484 	div	ab
+      0000CE E5 F0            [12]  485 	mov	a,b
+      0000D0 30 D5 02         [24]  486 	jnb	F0,00131$
+      0000D3 F4               [12]  487 	cpl	a
+      0000D4 04               [12]  488 	inc	a
+      0000D5                        489 00131$:
+      0000D5 24 30            [12]  490 	add	a,#0x30
+      0000D7 F5 35            [12]  491 	mov	(_displayBuf + 0x0002),a
+                                    492 ;	hw6clock.c:80: displayBuf[3] = timeBuf[1]/10 +'0';
+      0000D9 C2 D5            [12]  493 	clr	F0
+      0000DB 75 F0 0A         [24]  494 	mov	b,#0x0a
+      0000DE E5 31            [12]  495 	mov	a,(_timeBuf + 0x0001)
+      0000E0 30 E7 04         [24]  496 	jnb	acc.7,00132$
+      0000E3 B2 D5            [12]  497 	cpl	F0
+      0000E5 F4               [12]  498 	cpl	a
+      0000E6 04               [12]  499 	inc	a
+      0000E7                        500 00132$:
+      0000E7 84               [48]  501 	div	ab
+      0000E8 30 D5 02         [24]  502 	jnb	F0,00133$
+      0000EB F4               [12]  503 	cpl	a
+      0000EC 04               [12]  504 	inc	a
+      0000ED                        505 00133$:
+      0000ED 24 30            [12]  506 	add	a,#0x30
+      0000EF F5 36            [12]  507 	mov	(_displayBuf + 0x0003),a
+                                    508 ;	hw6clock.c:81: displayBuf[4] = timeBuf[2]%10 +'0';
+      0000F1 75 F0 0A         [24]  509 	mov	b,#0x0a
+      0000F4 E5 32            [12]  510 	mov	a,(_timeBuf + 0x0002)
+      0000F6 C2 D5            [12]  511 	clr	F0
+      0000F8 30 E7 04         [24]  512 	jnb	acc.7,00134$
+      0000FB D2 D5            [12]  513 	setb	F0
+      0000FD F4               [12]  514 	cpl	a
+      0000FE 04               [12]  515 	inc	a
+      0000FF                        516 00134$:
+      0000FF 84               [48]  517 	div	ab
+      000100 E5 F0            [12]  518 	mov	a,b
+      000102 30 D5 02         [24]  519 	jnb	F0,00135$
+      000105 F4               [12]  520 	cpl	a
+      000106 04               [12]  521 	inc	a
+      000107                        522 00135$:
+      000107 24 30            [12]  523 	add	a,#0x30
+      000109 F5 37            [12]  524 	mov	(_displayBuf + 0x0004),a
+                                    525 ;	hw6clock.c:82: displayBuf[5] = timeBuf[2]/10 +'0';
+      00010B C2 D5            [12]  526 	clr	F0
+      00010D 75 F0 0A         [24]  527 	mov	b,#0x0a
+      000110 E5 32            [12]  528 	mov	a,(_timeBuf + 0x0002)
+      000112 30 E7 04         [24]  529 	jnb	acc.7,00136$
+      000115 B2 D5            [12]  530 	cpl	F0
+      000117 F4               [12]  531 	cpl	a
+      000118 04               [12]  532 	inc	a
+      000119                        533 00136$:
+      000119 84               [48]  534 	div	ab
+      00011A 30 D5 02         [24]  535 	jnb	F0,00137$
+      00011D F4               [12]  536 	cpl	a
+      00011E 04               [12]  537 	inc	a
+      00011F                        538 00137$:
+      00011F 24 30            [12]  539 	add	a,#0x30
+      000121 F5 38            [12]  540 	mov	(_displayBuf + 0x0005),a
+                                    541 ;	hw6clock.c:83: if(carrybit ==2){
+      000123 BF 02 12         [24]  542 	cjne	r7,#0x02,00110$
+                                    543 ;	hw6clock.c:84: setDdRamAddress(0x06);
+      000126 75 82 06         [24]  544 	mov	dpl,#0x06
+      000129 12 02 08         [24]  545 	lcall	_setDdRamAddress
+                                    546 ;	hw6clock.c:85: sendChar(displayBuf[1]);
+      00012C 85 34 82         [24]  547 	mov	dpl,(_displayBuf + 0x0001)
+      00012F 12 02 25         [24]  548 	lcall	_sendChar
+                                    549 ;	hw6clock.c:86: sendChar(displayBuf[0]);
+      000132 85 33 82         [24]  550 	mov	dpl,_displayBuf
+      000135 02 02 25         [24]  551 	ljmp	_sendChar
+      000138                        552 00110$:
+                                    553 ;	hw6clock.c:88: else if(carrybit == 4){
+      000138 BF 04 24         [24]  554 	cjne	r7,#0x04,00107$
+                                    555 ;	hw6clock.c:89: setDdRamAddress(0x03);
+      00013B 75 82 03         [24]  556 	mov	dpl,#0x03
+      00013E 12 02 08         [24]  557 	lcall	_setDdRamAddress
+                                    558 ;	hw6clock.c:90: sendChar(displayBuf[3]);
+      000141 85 36 82         [24]  559 	mov	dpl,(_displayBuf + 0x0003)
+      000144 12 02 25         [24]  560 	lcall	_sendChar
+                                    561 ;	hw6clock.c:91: sendChar(displayBuf[2]);
+      000147 85 35 82         [24]  562 	mov	dpl,(_displayBuf + 0x0002)
+      00014A 12 02 25         [24]  563 	lcall	_sendChar
+                                    564 ;	hw6clock.c:92: sendChar(':');
+      00014D 75 82 3A         [24]  565 	mov	dpl,#0x3A
+      000150 12 02 25         [24]  566 	lcall	_sendChar
+                                    567 ;	hw6clock.c:93: sendChar(displayBuf[1]);
+      000153 85 34 82         [24]  568 	mov	dpl,(_displayBuf + 0x0001)
+      000156 12 02 25         [24]  569 	lcall	_sendChar
+                                    570 ;	hw6clock.c:94: sendChar(displayBuf[0]);
+      000159 85 33 82         [24]  571 	mov	dpl,_displayBuf
+      00015C 02 02 25         [24]  572 	ljmp	_sendChar
+      00015F                        573 00107$:
+                                    574 ;	hw6clock.c:96: else if (carrybit == 5){
+      00015F BF 05 36         [24]  575 	cjne	r7,#0x05,00104$
+                                    576 ;	hw6clock.c:97: setDdRamAddress(0x00);
+      000162 75 82 00         [24]  577 	mov	dpl,#0x00
+      000165 12 02 08         [24]  578 	lcall	_setDdRamAddress
+                                    579 ;	hw6clock.c:98: sendChar(displayBuf[5]);
+      000168 85 38 82         [24]  580 	mov	dpl,(_displayBuf + 0x0005)
+      00016B 12 02 25         [24]  581 	lcall	_sendChar
+                                    582 ;	hw6clock.c:99: sendChar(displayBuf[4]);
+      00016E 85 37 82         [24]  583 	mov	dpl,(_displayBuf + 0x0004)
+      000171 12 02 25         [24]  584 	lcall	_sendChar
+                                    585 ;	hw6clock.c:100: sendChar(':');
+      000174 75 82 3A         [24]  586 	mov	dpl,#0x3A
+      000177 12 02 25         [24]  587 	lcall	_sendChar
+                                    588 ;	hw6clock.c:101: sendChar(displayBuf[3]);
+      00017A 85 36 82         [24]  589 	mov	dpl,(_displayBuf + 0x0003)
+      00017D 12 02 25         [24]  590 	lcall	_sendChar
+                                    591 ;	hw6clock.c:102: sendChar(displayBuf[2]);
+      000180 85 35 82         [24]  592 	mov	dpl,(_displayBuf + 0x0002)
+      000183 12 02 25         [24]  593 	lcall	_sendChar
+                                    594 ;	hw6clock.c:103: sendChar(':');
+      000186 75 82 3A         [24]  595 	mov	dpl,#0x3A
+      000189 12 02 25         [24]  596 	lcall	_sendChar
+                                    597 ;	hw6clock.c:104: sendChar(displayBuf[1]);
+      00018C 85 34 82         [24]  598 	mov	dpl,(_displayBuf + 0x0001)
+      00018F 12 02 25         [24]  599 	lcall	_sendChar
+                                    600 ;	hw6clock.c:105: sendChar(displayBuf[0]);
+      000192 85 33 82         [24]  601 	mov	dpl,_displayBuf
+      000195 02 02 25         [24]  602 	ljmp	_sendChar
+      000198                        603 00104$:
+                                    604 ;	hw6clock.c:108: else if (carrybit == 6){
+      000198 BF 06 0F         [24]  605 	cjne	r7,#0x06,00112$
+                                    606 ;	hw6clock.c:109: setDdRamAddress(0x00);
+      00019B 75 82 00         [24]  607 	mov	dpl,#0x00
+      00019E 12 02 08         [24]  608 	lcall	_setDdRamAddress
+                                    609 ;	hw6clock.c:110: sendString("00:00:00");
+      0001A1 90 02 92         [24]  610 	mov	dptr,#___str_0
+      0001A4 75 F0 80         [24]  611 	mov	b,#0x80
+      0001A7 02 02 46         [24]  612 	ljmp	_sendString
+      0001AA                        613 00112$:
+      0001AA 22               [24]  614 	ret
+                                    615 ;------------------------------------------------------------
+                                    616 ;Allocation info for local variables in function 'PollTimer'
+                                    617 ;------------------------------------------------------------
+                                    618 ;	hw6clock.c:115: void PollTimer() {
+                                    619 ;	-----------------------------------------
+                                    620 ;	 function PollTimer
+                                    621 ;	-----------------------------------------
+      0001AB                        622 _PollTimer:
+                                    623 ;	hw6clock.c:116: while(tick==0){
+      0001AB                        624 00101$:
+      0001AB 20 00 05         [24]  625 	jb	_tick,00104$
+                                    626 ;	hw6clock.c:117: HandleRollover();
+      0001AE 12 01 B4         [24]  627 	lcall	_HandleRollover
+      0001B1 80 F8            [24]  628 	sjmp	00101$
+      0001B3                        629 00104$:
+      0001B3 22               [24]  630 	ret
+                                    631 ;------------------------------------------------------------
+                                    632 ;Allocation info for local variables in function 'HandleRollover'
+                                    633 ;------------------------------------------------------------
+                                    634 ;x                         Allocated to registers r6 r7 
+                                    635 ;------------------------------------------------------------
+                                    636 ;	hw6clock.c:120: void HandleRollover(){
+                                    637 ;	-----------------------------------------
+                                    638 ;	 function HandleRollover
+                                    639 ;	-----------------------------------------
+      0001B4                        640 _HandleRollover:
+                                    641 ;	hw6clock.c:123: while (TF0 == 0);
+      0001B4 7E 00            [12]  642 	mov	r6,#0x00
+      0001B6 7F 00            [12]  643 	mov	r7,#0x00
+      0001B8                        644 00101$:
+                                    645 ;	hw6clock.c:124: TF0 = 0; // clear the timer flag		
+      0001B8 10 8D 02         [24]  646 	jbc	_TF0,00119$
+      0001BB 80 FB            [24]  647 	sjmp	00101$
+      0001BD                        648 00119$:
+                                    649 ;	hw6clock.c:122: for(x = 0; x < 10000; x++){		
+      0001BD 0E               [12]  650 	inc	r6
+      0001BE BE 00 01         [24]  651 	cjne	r6,#0x00,00120$
+      0001C1 0F               [12]  652 	inc	r7
+      0001C2                        653 00120$:
+      0001C2 C3               [12]  654 	clr	c
+      0001C3 EE               [12]  655 	mov	a,r6
+      0001C4 94 10            [12]  656 	subb	a,#0x10
+      0001C6 EF               [12]  657 	mov	a,r7
+      0001C7 64 80            [12]  658 	xrl	a,#0x80
+      0001C9 94 A7            [12]  659 	subb	a,#0xa7
+      0001CB 40 EB            [24]  660 	jc	00101$
+                                    661 ;	hw6clock.c:126: tick = 1;
+      0001CD D2 00            [12]  662 	setb	_tick
+      0001CF 22               [24]  663 	ret
+                                    664 ;------------------------------------------------------------
+                                    665 ;Allocation info for local variables in function 'IRWRITE'
+                                    666 ;------------------------------------------------------------
+                                    667 ;addr                      Allocated to registers r7 
+                                    668 ;------------------------------------------------------------
+                                    669 ;	hw6clock.c:129: void IRWRITE(char addr)
+                                    670 ;	-----------------------------------------
+                                    671 ;	 function IRWRITE
+                                    672 ;	-----------------------------------------
+      0001D0                        673 _IRWRITE:
+      0001D0 AF 82            [24]  674 	mov	r7,dpl
+                                    675 ;	hw6clock.c:131: P1= (addr & 0xf0) ;
+      0001D2 74 F0            [12]  676 	mov	a,#0xF0
+      0001D4 5F               [12]  677 	anl	a,r7
+      0001D5 F5 90            [12]  678 	mov	_P1,a
+                                    679 ;	hw6clock.c:132: E = 1;
+      0001D7 D2 92            [12]  680 	setb	_P1_2
+                                    681 ;	hw6clock.c:133: E = 0;
+      0001D9 C2 92            [12]  682 	clr	_P1_2
+                                    683 ;	hw6clock.c:134: P1 = ((addr & 0x0f) << 4) | 0x00;
+      0001DB 53 07 0F         [24]  684 	anl	ar7,#0x0F
+      0001DE EF               [12]  685 	mov	a,r7
+      0001DF C4               [12]  686 	swap	a
+      0001E0 54 F0            [12]  687 	anl	a,#0xF0
+      0001E2 F5 90            [12]  688 	mov	_P1,a
+                                    689 ;	hw6clock.c:135: E = 1;
+      0001E4 D2 92            [12]  690 	setb	_P1_2
+                                    691 ;	hw6clock.c:136: E = 0;
+      0001E6 C2 92            [12]  692 	clr	_P1_2
+                                    693 ;	hw6clock.c:137: delay();
+      0001E8 02 02 71         [24]  694 	ljmp	_delay
+                                    695 ;------------------------------------------------------------
+                                    696 ;Allocation info for local variables in function 'functionSet'
+                                    697 ;------------------------------------------------------------
+                                    698 ;	hw6clock.c:139: void functionSet(void) {//ok
+                                    699 ;	-----------------------------------------
+                                    700 ;	 function functionSet
+                                    701 ;	-----------------------------------------
+      0001EB                        702 _functionSet:
+                                    703 ;	hw6clock.c:147: P1 = (P1&0x23) | 0x20;
+      0001EB 74 23            [12]  704 	mov	a,#0x23
+      0001ED 55 90            [12]  705 	anl	a,_P1
+      0001EF 44 20            [12]  706 	orl	a,#0x20
+      0001F1 F5 90            [12]  707 	mov	_P1,a
+                                    708 ;	hw6clock.c:149: E = 1;
+      0001F3 D2 92            [12]  709 	setb	_P1_2
+                                    710 ;	hw6clock.c:150: E = 0;
+      0001F5 C2 92            [12]  711 	clr	_P1_2
+                                    712 ;	hw6clock.c:151: delay();
+      0001F7 12 02 71         [24]  713 	lcall	_delay
+                                    714 ;	hw6clock.c:152: E = 1;
+      0001FA D2 92            [12]  715 	setb	_P1_2
+                                    716 ;	hw6clock.c:153: E = 0;
+      0001FC C2 92            [12]  717 	clr	_P1_2
+                                    718 ;	hw6clock.c:155: P1=0x80;
+      0001FE 75 90 80         [24]  719 	mov	_P1,#0x80
+                                    720 ;	hw6clock.c:156: E = 1;
+      000201 D2 92            [12]  721 	setb	_P1_2
+                                    722 ;	hw6clock.c:157: E = 0;
+      000203 C2 92            [12]  723 	clr	_P1_2
+                                    724 ;	hw6clock.c:158: delay();
+      000205 02 02 71         [24]  725 	ljmp	_delay
+                                    726 ;------------------------------------------------------------
+                                    727 ;Allocation info for local variables in function 'setDdRamAddress'
+                                    728 ;------------------------------------------------------------
+                                    729 ;address                   Allocated to registers r7 
+                                    730 ;------------------------------------------------------------
+                                    731 ;	hw6clock.c:161: void setDdRamAddress(char address) {
+                                    732 ;	-----------------------------------------
+                                    733 ;	 function setDdRamAddress
+                                    734 ;	-----------------------------------------
+      000208                        735 _setDdRamAddress:
+      000208 AF 82            [24]  736 	mov	r7,dpl
+                                    737 ;	hw6clock.c:163: P1= (address & 0xf0) | 0x80;
+      00020A 74 F0            [12]  738 	mov	a,#0xF0
+      00020C 5F               [12]  739 	anl	a,r7
+      00020D 44 80            [12]  740 	orl	a,#0x80
+      00020F F5 90            [12]  741 	mov	_P1,a
+                                    742 ;	hw6clock.c:164: E = 1;
+      000211 D2 92            [12]  743 	setb	_P1_2
+                                    744 ;	hw6clock.c:165: E = 0;
+      000213 C2 92            [12]  745 	clr	_P1_2
+                                    746 ;	hw6clock.c:167: P1= (address & 0x0f) << 4;
+      000215 53 07 0F         [24]  747 	anl	ar7,#0x0F
+      000218 EF               [12]  748 	mov	a,r7
+      000219 C4               [12]  749 	swap	a
+      00021A 54 F0            [12]  750 	anl	a,#0xF0
+      00021C F5 90            [12]  751 	mov	_P1,a
+                                    752 ;	hw6clock.c:168: E = 1;
+      00021E D2 92            [12]  753 	setb	_P1_2
+                                    754 ;	hw6clock.c:169: E = 0;
+      000220 C2 92            [12]  755 	clr	_P1_2
+                                    756 ;	hw6clock.c:170: delay();
+      000222 02 02 71         [24]  757 	ljmp	_delay
+                                    758 ;------------------------------------------------------------
+                                    759 ;Allocation info for local variables in function 'sendChar'
+                                    760 ;------------------------------------------------------------
+                                    761 ;c                         Allocated to registers r7 
+                                    762 ;------------------------------------------------------------
+                                    763 ;	hw6clock.c:175: void sendChar(char c) {
+                                    764 ;	-----------------------------------------
+                                    765 ;	 function sendChar
+                                    766 ;	-----------------------------------------
+      000225                        767 _sendChar:
+      000225 AF 82            [24]  768 	mov	r7,dpl
+                                    769 ;	hw6clock.c:181: P1 = (c & 0xf0) | 0x08;
+      000227 74 F0            [12]  770 	mov	a,#0xF0
+      000229 5F               [12]  771 	anl	a,r7
+      00022A 44 08            [12]  772 	orl	a,#0x08
+      00022C F5 90            [12]  773 	mov	_P1,a
+                                    774 ;	hw6clock.c:182: E = 1;
+      00022E D2 92            [12]  775 	setb	_P1_2
+                                    776 ;	hw6clock.c:183: E = 0;
+      000230 C2 92            [12]  777 	clr	_P1_2
+                                    778 ;	hw6clock.c:189: P1=  ((c & 0x0f) << 4) | 0x08;
+      000232 53 07 0F         [24]  779 	anl	ar7,#0x0F
+      000235 EF               [12]  780 	mov	a,r7
+      000236 C4               [12]  781 	swap	a
+      000237 54 F0            [12]  782 	anl	a,#0xF0
+      000239 FF               [12]  783 	mov	r7,a
+      00023A 74 08            [12]  784 	mov	a,#0x08
+      00023C 4F               [12]  785 	orl	a,r7
+      00023D F5 90            [12]  786 	mov	_P1,a
+                                    787 ;	hw6clock.c:190: E = 1;
+      00023F D2 92            [12]  788 	setb	_P1_2
+                                    789 ;	hw6clock.c:191: E = 0;
+      000241 C2 92            [12]  790 	clr	_P1_2
+                                    791 ;	hw6clock.c:192: delay();
+      000243 02 02 71         [24]  792 	ljmp	_delay
+                                    793 ;------------------------------------------------------------
+                                    794 ;Allocation info for local variables in function 'sendString'
+                                    795 ;------------------------------------------------------------
+                                    796 ;str                       Allocated to registers 
+                                    797 ;p                         Allocated to registers r5 r6 r7 
+                                    798 ;------------------------------------------------------------
+                                    799 ;	hw6clock.c:195: void sendString(char* str) {
+                                    800 ;	-----------------------------------------
+                                    801 ;	 function sendString
+                                    802 ;	-----------------------------------------
+      000246                        803 _sendString:
+      000246 AD 82            [24]  804 	mov	r5,dpl
+      000248 AE 83            [24]  805 	mov	r6,dph
+      00024A AF F0            [24]  806 	mov	r7,b
+                                    807 ;	hw6clock.c:202: for (p=str; *p; p++) {
+      00024C                        808 00103$:
+      00024C 8D 82            [24]  809 	mov	dpl,r5
+      00024E 8E 83            [24]  810 	mov	dph,r6
+      000250 8F F0            [24]  811 	mov	b,r7
+      000252 12 02 76         [24]  812 	lcall	__gptrget
+      000255 FC               [12]  813 	mov	r4,a
+      000256 60 18            [24]  814 	jz	00105$
+                                    815 ;	hw6clock.c:203: sendChar(*p);
+      000258 8C 82            [24]  816 	mov	dpl,r4
+      00025A C0 07            [24]  817 	push	ar7
+      00025C C0 06            [24]  818 	push	ar6
+      00025E C0 05            [24]  819 	push	ar5
+      000260 12 02 25         [24]  820 	lcall	_sendChar
+      000263 D0 05            [24]  821 	pop	ar5
+      000265 D0 06            [24]  822 	pop	ar6
+      000267 D0 07            [24]  823 	pop	ar7
+                                    824 ;	hw6clock.c:202: for (p=str; *p; p++) {
+      000269 0D               [12]  825 	inc	r5
+      00026A BD 00 DF         [24]  826 	cjne	r5,#0x00,00103$
+      00026D 0E               [12]  827 	inc	r6
+      00026E 80 DC            [24]  828 	sjmp	00103$
+      000270                        829 00105$:
+      000270 22               [24]  830 	ret
+                                    831 ;------------------------------------------------------------
+                                    832 ;Allocation info for local variables in function 'delay'
+                                    833 ;------------------------------------------------------------
+                                    834 ;c                         Allocated to registers r7 
+                                    835 ;------------------------------------------------------------
+                                    836 ;	hw6clock.c:206: void delay(void) {
+                                    837 ;	-----------------------------------------
+                                    838 ;	 function delay
+                                    839 ;	-----------------------------------------
+      000271                        840 _delay:
+                                    841 ;	hw6clock.c:208: for (c = 0; c < 50; c++);
+      000271 7F 32            [12]  842 	mov	r7,#0x32
+      000273                        843 00104$:
+      000273 DF FE            [24]  844 	djnz	r7,00104$
+      000275 22               [24]  845 	ret
+                                    846 	.area CSEG    (CODE)
+                                    847 	.area CONST   (CODE)
+      000292                        848 ___str_0:
+      000292 30 30 3A 30 30 3A 30   849 	.ascii "00:00:00"
+             30
+      00029A 00                     850 	.db 0x00
+                                    851 	.area XINIT   (CODE)
+                                    852 	.area CABS    (ABS,CODE)

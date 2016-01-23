@@ -1,0 +1,20 @@
+-muwx
+-i hw4.ihx
+-M
+-Y
+-b HOME = 0x0000
+-b DSEG = 0x0030
+-b XSEG = 0x0001
+-b PSEG = 0x0001
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-b SSEG = 0x0080
+-k C:\Program Files\SDCC\bin\..\lib\small
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+hw4.rel
+
+-e

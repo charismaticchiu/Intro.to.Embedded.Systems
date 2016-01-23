@@ -1,0 +1,1757 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.4.0/*rc1*/ #8960 (Mar 15 2014) (MINGW32)
+                                      4 ; This file was generated Mon Apr 14 19:40:14 2014
+                                      5 ;--------------------------------------------------------
+                                      6 	.module hw5
+                                      7 	.optsdcc -mmcs51 --model-small
+                                      8 	
+                                      9 ;--------------------------------------------------------
+                                     10 ; Public variables in this module
+                                     11 ;--------------------------------------------------------
+                                     12 	.globl _firstChar_PARM_2
+                                     13 	.globl _Main
+                                     14 	.globl _CY
+                                     15 	.globl _AC
+                                     16 	.globl _F0
+                                     17 	.globl _RS1
+                                     18 	.globl _RS0
+                                     19 	.globl _OV
+                                     20 	.globl _F1
+                                     21 	.globl _P
+                                     22 	.globl _PS
+                                     23 	.globl _PT1
+                                     24 	.globl _PX1
+                                     25 	.globl _PT0
+                                     26 	.globl _PX0
+                                     27 	.globl _RD
+                                     28 	.globl _WR
+                                     29 	.globl _T1
+                                     30 	.globl _T0
+                                     31 	.globl _INT1
+                                     32 	.globl _INT0
+                                     33 	.globl _TXD
+                                     34 	.globl _RXD
+                                     35 	.globl _P3_7
+                                     36 	.globl _P3_6
+                                     37 	.globl _P3_5
+                                     38 	.globl _P3_4
+                                     39 	.globl _P3_3
+                                     40 	.globl _P3_2
+                                     41 	.globl _P3_1
+                                     42 	.globl _P3_0
+                                     43 	.globl _EA
+                                     44 	.globl _ES
+                                     45 	.globl _ET1
+                                     46 	.globl _EX1
+                                     47 	.globl _ET0
+                                     48 	.globl _EX0
+                                     49 	.globl _P2_7
+                                     50 	.globl _P2_6
+                                     51 	.globl _P2_5
+                                     52 	.globl _P2_4
+                                     53 	.globl _P2_3
+                                     54 	.globl _P2_2
+                                     55 	.globl _P2_1
+                                     56 	.globl _P2_0
+                                     57 	.globl _SM0
+                                     58 	.globl _SM1
+                                     59 	.globl _SM2
+                                     60 	.globl _REN
+                                     61 	.globl _TB8
+                                     62 	.globl _RB8
+                                     63 	.globl _TI
+                                     64 	.globl _RI
+                                     65 	.globl _P1_7
+                                     66 	.globl _P1_6
+                                     67 	.globl _P1_5
+                                     68 	.globl _P1_4
+                                     69 	.globl _P1_3
+                                     70 	.globl _P1_2
+                                     71 	.globl _P1_1
+                                     72 	.globl _P1_0
+                                     73 	.globl _TF1
+                                     74 	.globl _TR1
+                                     75 	.globl _TF0
+                                     76 	.globl _TR0
+                                     77 	.globl _IE1
+                                     78 	.globl _IT1
+                                     79 	.globl _IE0
+                                     80 	.globl _IT0
+                                     81 	.globl _P0_7
+                                     82 	.globl _P0_6
+                                     83 	.globl _P0_5
+                                     84 	.globl _P0_4
+                                     85 	.globl _P0_3
+                                     86 	.globl _P0_2
+                                     87 	.globl _P0_1
+                                     88 	.globl _P0_0
+                                     89 	.globl _B
+                                     90 	.globl _ACC
+                                     91 	.globl _PSW
+                                     92 	.globl _IP
+                                     93 	.globl _P3
+                                     94 	.globl _IE
+                                     95 	.globl _P2
+                                     96 	.globl _SBUF
+                                     97 	.globl _SCON
+                                     98 	.globl _P1
+                                     99 	.globl _TH1
+                                    100 	.globl _TH0
+                                    101 	.globl _TL1
+                                    102 	.globl _TL0
+                                    103 	.globl _TMOD
+                                    104 	.globl _TCON
+                                    105 	.globl _PCON
+                                    106 	.globl _DPH
+                                    107 	.globl _DPL
+                                    108 	.globl _SP
+                                    109 	.globl _P0
+                                    110 	.globl _secondChar_PARM_3
+                                    111 	.globl _secondChar_PARM_2
+                                    112 	.globl _curAddr
+                                    113 	.globl _firstChar
+                                    114 	.globl _secondChar
+                                    115 	.globl _IRWRITE
+                                    116 	.globl _functionSet
+                                    117 	.globl _setDdRamAddress
+                                    118 	.globl _sendChar
+                                    119 	.globl _sendString
+                                    120 	.globl _delay
+                                    121 	.globl _colScan
+                                    122 ;--------------------------------------------------------
+                                    123 ; special function registers
+                                    124 ;--------------------------------------------------------
+                                    125 	.area RSEG    (ABS,DATA)
+      000000                        126 	.org 0x0000
+                           000080   127 _P0	=	0x0080
+                           000081   128 _SP	=	0x0081
+                           000082   129 _DPL	=	0x0082
+                           000083   130 _DPH	=	0x0083
+                           000087   131 _PCON	=	0x0087
+                           000088   132 _TCON	=	0x0088
+                           000089   133 _TMOD	=	0x0089
+                           00008A   134 _TL0	=	0x008a
+                           00008B   135 _TL1	=	0x008b
+                           00008C   136 _TH0	=	0x008c
+                           00008D   137 _TH1	=	0x008d
+                           000090   138 _P1	=	0x0090
+                           000098   139 _SCON	=	0x0098
+                           000099   140 _SBUF	=	0x0099
+                           0000A0   141 _P2	=	0x00a0
+                           0000A8   142 _IE	=	0x00a8
+                           0000B0   143 _P3	=	0x00b0
+                           0000B8   144 _IP	=	0x00b8
+                           0000D0   145 _PSW	=	0x00d0
+                           0000E0   146 _ACC	=	0x00e0
+                           0000F0   147 _B	=	0x00f0
+                                    148 ;--------------------------------------------------------
+                                    149 ; special function bits
+                                    150 ;--------------------------------------------------------
+                                    151 	.area RSEG    (ABS,DATA)
+      000000                        152 	.org 0x0000
+                           000080   153 _P0_0	=	0x0080
+                           000081   154 _P0_1	=	0x0081
+                           000082   155 _P0_2	=	0x0082
+                           000083   156 _P0_3	=	0x0083
+                           000084   157 _P0_4	=	0x0084
+                           000085   158 _P0_5	=	0x0085
+                           000086   159 _P0_6	=	0x0086
+                           000087   160 _P0_7	=	0x0087
+                           000088   161 _IT0	=	0x0088
+                           000089   162 _IE0	=	0x0089
+                           00008A   163 _IT1	=	0x008a
+                           00008B   164 _IE1	=	0x008b
+                           00008C   165 _TR0	=	0x008c
+                           00008D   166 _TF0	=	0x008d
+                           00008E   167 _TR1	=	0x008e
+                           00008F   168 _TF1	=	0x008f
+                           000090   169 _P1_0	=	0x0090
+                           000091   170 _P1_1	=	0x0091
+                           000092   171 _P1_2	=	0x0092
+                           000093   172 _P1_3	=	0x0093
+                           000094   173 _P1_4	=	0x0094
+                           000095   174 _P1_5	=	0x0095
+                           000096   175 _P1_6	=	0x0096
+                           000097   176 _P1_7	=	0x0097
+                           000098   177 _RI	=	0x0098
+                           000099   178 _TI	=	0x0099
+                           00009A   179 _RB8	=	0x009a
+                           00009B   180 _TB8	=	0x009b
+                           00009C   181 _REN	=	0x009c
+                           00009D   182 _SM2	=	0x009d
+                           00009E   183 _SM1	=	0x009e
+                           00009F   184 _SM0	=	0x009f
+                           0000A0   185 _P2_0	=	0x00a0
+                           0000A1   186 _P2_1	=	0x00a1
+                           0000A2   187 _P2_2	=	0x00a2
+                           0000A3   188 _P2_3	=	0x00a3
+                           0000A4   189 _P2_4	=	0x00a4
+                           0000A5   190 _P2_5	=	0x00a5
+                           0000A6   191 _P2_6	=	0x00a6
+                           0000A7   192 _P2_7	=	0x00a7
+                           0000A8   193 _EX0	=	0x00a8
+                           0000A9   194 _ET0	=	0x00a9
+                           0000AA   195 _EX1	=	0x00aa
+                           0000AB   196 _ET1	=	0x00ab
+                           0000AC   197 _ES	=	0x00ac
+                           0000AF   198 _EA	=	0x00af
+                           0000B0   199 _P3_0	=	0x00b0
+                           0000B1   200 _P3_1	=	0x00b1
+                           0000B2   201 _P3_2	=	0x00b2
+                           0000B3   202 _P3_3	=	0x00b3
+                           0000B4   203 _P3_4	=	0x00b4
+                           0000B5   204 _P3_5	=	0x00b5
+                           0000B6   205 _P3_6	=	0x00b6
+                           0000B7   206 _P3_7	=	0x00b7
+                           0000B0   207 _RXD	=	0x00b0
+                           0000B1   208 _TXD	=	0x00b1
+                           0000B2   209 _INT0	=	0x00b2
+                           0000B3   210 _INT1	=	0x00b3
+                           0000B4   211 _T0	=	0x00b4
+                           0000B5   212 _T1	=	0x00b5
+                           0000B6   213 _WR	=	0x00b6
+                           0000B7   214 _RD	=	0x00b7
+                           0000B8   215 _PX0	=	0x00b8
+                           0000B9   216 _PT0	=	0x00b9
+                           0000BA   217 _PX1	=	0x00ba
+                           0000BB   218 _PT1	=	0x00bb
+                           0000BC   219 _PS	=	0x00bc
+                           0000D0   220 _P	=	0x00d0
+                           0000D1   221 _F1	=	0x00d1
+                           0000D2   222 _OV	=	0x00d2
+                           0000D3   223 _RS0	=	0x00d3
+                           0000D4   224 _RS1	=	0x00d4
+                           0000D5   225 _F0	=	0x00d5
+                           0000D6   226 _AC	=	0x00d6
+                           0000D7   227 _CY	=	0x00d7
+                                    228 ;--------------------------------------------------------
+                                    229 ; overlayable register banks
+                                    230 ;--------------------------------------------------------
+                                    231 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        232 	.ds 8
+                                    233 ;--------------------------------------------------------
+                                    234 ; internal ram data
+                                    235 ;--------------------------------------------------------
+                                    236 	.area DSEG    (DATA)
+      000000                        237 _curAddr::
+      000000                        238 	.ds 1
+      000001                        239 _Main_firstP1_1_11:
+      000001                        240 	.ds 1
+      000002                        241 _Main_firstP2_1_11:
+      000002                        242 	.ds 1
+      000003                        243 _secondChar_PARM_2:
+      000003                        244 	.ds 1
+      000004                        245 _secondChar_PARM_3:
+      000004                        246 	.ds 1
+                                    247 ;--------------------------------------------------------
+                                    248 ; overlayable items in internal ram 
+                                    249 ;--------------------------------------------------------
+                                    250 	.area	OSEG    (OVR,DATA)
+      000000                        251 _firstChar_PARM_2:
+      000000                        252 	.ds 1
+                                    253 	.area	OSEG    (OVR,DATA)
+                                    254 	.area	OSEG    (OVR,DATA)
+                                    255 ;--------------------------------------------------------
+                                    256 ; indirectly addressable internal ram data
+                                    257 ;--------------------------------------------------------
+                                    258 	.area ISEG    (DATA)
+                                    259 ;--------------------------------------------------------
+                                    260 ; absolute internal ram data
+                                    261 ;--------------------------------------------------------
+                                    262 	.area IABS    (ABS,DATA)
+                                    263 	.area IABS    (ABS,DATA)
+                                    264 ;--------------------------------------------------------
+                                    265 ; bit data
+                                    266 ;--------------------------------------------------------
+                                    267 	.area BSEG    (BIT)
+                                    268 ;--------------------------------------------------------
+                                    269 ; paged external ram data
+                                    270 ;--------------------------------------------------------
+                                    271 	.area PSEG    (PAG,XDATA)
+                                    272 ;--------------------------------------------------------
+                                    273 ; external ram data
+                                    274 ;--------------------------------------------------------
+                                    275 	.area XSEG    (XDATA)
+                                    276 ;--------------------------------------------------------
+                                    277 ; absolute external ram data
+                                    278 ;--------------------------------------------------------
+                                    279 	.area XABS    (ABS,XDATA)
+                                    280 ;--------------------------------------------------------
+                                    281 ; external initialized ram data
+                                    282 ;--------------------------------------------------------
+                                    283 	.area XISEG   (XDATA)
+                                    284 	.area HOME    (CODE)
+                                    285 	.area GSINIT0 (CODE)
+                                    286 	.area GSINIT1 (CODE)
+                                    287 	.area GSINIT2 (CODE)
+                                    288 	.area GSINIT3 (CODE)
+                                    289 	.area GSINIT4 (CODE)
+                                    290 	.area GSINIT5 (CODE)
+                                    291 	.area GSINIT  (CODE)
+                                    292 	.area GSFINAL (CODE)
+                                    293 	.area CSEG    (CODE)
+                                    294 ;--------------------------------------------------------
+                                    295 ; global & static initialisations
+                                    296 ;--------------------------------------------------------
+                                    297 	.area HOME    (CODE)
+                                    298 	.area GSINIT  (CODE)
+                                    299 	.area GSFINAL (CODE)
+                                    300 	.area GSINIT  (CODE)
+                                    301 ;	hw5.c:33: char curAddr=0x00;
+      000000 75*00 00         [24]  302 	mov	_curAddr,#0x00
+                                    303 ;--------------------------------------------------------
+                                    304 ; Home
+                                    305 ;--------------------------------------------------------
+                                    306 	.area HOME    (CODE)
+                                    307 	.area HOME    (CODE)
+                                    308 ;--------------------------------------------------------
+                                    309 ; code
+                                    310 ;--------------------------------------------------------
+                                    311 	.area CSEG    (CODE)
+                                    312 ;------------------------------------------------------------
+                                    313 ;Allocation info for local variables in function 'Main'
+                                    314 ;------------------------------------------------------------
+                                    315 ;bitmap                    Allocated to registers r1 
+                                    316 ;bitmapL                   Allocated to registers r4 
+                                    317 ;bitmapH                   Allocated to registers r5 
+                                    318 ;row                       Allocated to registers r2 
+                                    319 ;rowmask                   Allocated to registers r3 
+                                    320 ;firstP1                   Allocated with name '_Main_firstP1_1_11'
+                                    321 ;firstP2                   Allocated with name '_Main_firstP2_1_11'
+                                    322 ;secondP1                  Allocated to registers 
+                                    323 ;secondP2                  Allocated to registers 
+                                    324 ;chr1                      Allocated to registers 
+                                    325 ;charCount                 Allocated to registers r6 r7 
+                                    326 ;------------------------------------------------------------
+                                    327 ;	hw5.c:34: void Main(void) {
+                                    328 ;	-----------------------------------------
+                                    329 ;	 function Main
+                                    330 ;	-----------------------------------------
+      000000                        331 _Main:
+                           000007   332 	ar7 = 0x07
+                           000006   333 	ar6 = 0x06
+                           000005   334 	ar5 = 0x05
+                           000004   335 	ar4 = 0x04
+                           000003   336 	ar3 = 0x03
+                           000002   337 	ar2 = 0x02
+                           000001   338 	ar1 = 0x01
+                           000000   339 	ar0 = 0x00
+                                    340 ;	hw5.c:38: int charCount=0;
+      000000 7E 00            [12]  341 	mov	r6,#0x00
+      000002 7F 00            [12]  342 	mov	r7,#0x00
+                                    343 ;	hw5.c:40: functionSet();
+      000004 C0 07            [24]  344 	push	ar7
+      000006 C0 06            [24]  345 	push	ar6
+      000008 12r06r22         [24]  346 	lcall	_functionSet
+                                    347 ;	hw5.c:42: IRWRITE(0x06);//entryModeSet(1, 0); // increment and no shift
+      00000B 75 82 06         [24]  348 	mov	dpl,#0x06
+      00000E 12r06r07         [24]  349 	lcall	_IRWRITE
+                                    350 ;	hw5.c:44: IRWRITE(0x0F);//displayOnOffControl(1, 1, 1); // display on, cursor on and blinking on
+      000011 75 82 0F         [24]  351 	mov	dpl,#0x0F
+      000014 12r06r07         [24]  352 	lcall	_IRWRITE
+                                    353 ;	hw5.c:46: setDdRamAddress(0x00); 
+      000017 75 82 00         [24]  354 	mov	dpl,#0x00
+      00001A 12r06r41         [24]  355 	lcall	_setDdRamAddress
+      00001D D0 06            [24]  356 	pop	ar6
+      00001F D0 07            [24]  357 	pop	ar7
+                                    358 ;	hw5.c:49: while (1) {
+      000021                        359 00114$:
+                                    360 ;	hw5.c:51: for (row=bitmapL=bitmapH=0, rowmask = 0xf7; row < 4; row++, rowmask >>= 1) {
+      000021 7D 00            [12]  361 	mov	r5,#0x00
+      000023 7C 00            [12]  362 	mov	r4,#0x00
+      000025 7B F7            [12]  363 	mov	r3,#0xF7
+      000027 7A 00            [12]  364 	mov	r2,#0x00
+      000029                        365 00117$:
+      000029 C3               [12]  366 	clr	c
+      00002A EA               [12]  367 	mov	a,r2
+      00002B 64 80            [12]  368 	xrl	a,#0x80
+      00002D 94 84            [12]  369 	subb	a,#0x84
+      00002F 50 3A            [24]  370 	jnc	00103$
+                                    371 ;	hw5.c:52: bitmap=colScan(rowmask);
+      000031 8B 82            [24]  372 	mov	dpl,r3
+      000033 C0 07            [24]  373 	push	ar7
+      000035 C0 06            [24]  374 	push	ar6
+      000037 C0 05            [24]  375 	push	ar5
+      000039 C0 04            [24]  376 	push	ar4
+      00003B C0 03            [24]  377 	push	ar3
+      00003D C0 02            [24]  378 	push	ar2
+      00003F 12r06rAF         [24]  379 	lcall	_colScan
+      000042 A9 82            [24]  380 	mov	r1,dpl
+      000044 D0 02            [24]  381 	pop	ar2
+      000046 D0 03            [24]  382 	pop	ar3
+      000048 D0 04            [24]  383 	pop	ar4
+      00004A D0 05            [24]  384 	pop	ar5
+      00004C D0 06            [24]  385 	pop	ar6
+      00004E D0 07            [24]  386 	pop	ar7
+                                    387 ;	hw5.c:53: if (row==2) {
+      000050 BA 02 08         [24]  388 	cjne	r2,#0x02,00102$
+                                    389 ;	hw5.c:54: bitmapH = (bitmapL >> 2);
+      000053 EC               [12]  390 	mov	a,r4
+      000054 A2 E7            [12]  391 	mov	c,acc.7
+      000056 13               [12]  392 	rrc	a
+      000057 A2 E7            [12]  393 	mov	c,acc.7
+      000059 13               [12]  394 	rrc	a
+      00005A FD               [12]  395 	mov	r5,a
+      00005B                        396 00102$:
+                                    397 ;	hw5.c:56: bitmapL = (bitmapL<<3) | bitmap;
+      00005B EC               [12]  398 	mov	a,r4
+      00005C C4               [12]  399 	swap	a
+      00005D 03               [12]  400 	rr	a
+      00005E 54 F8            [12]  401 	anl	a,#0xF8
+      000060 F8               [12]  402 	mov	r0,a
+      000061 49               [12]  403 	orl	a,r1
+      000062 FC               [12]  404 	mov	r4,a
+                                    405 ;	hw5.c:51: for (row=bitmapL=bitmapH=0, rowmask = 0xf7; row < 4; row++, rowmask >>= 1) {
+      000063 0A               [12]  406 	inc	r2
+      000064 EB               [12]  407 	mov	a,r3
+      000065 A2 E7            [12]  408 	mov	c,acc.7
+      000067 13               [12]  409 	rrc	a
+      000068 FB               [12]  410 	mov	r3,a
+      000069 80 BE            [24]  411 	sjmp	00117$
+      00006B                        412 00103$:
+                                    413 ;	hw5.c:60: if(bitmapL==0x00 && bitmapH==0x00){
+      00006B EC               [12]  414 	mov	a,r4
+      00006C 70 03            [24]  415 	jnz	00110$
+      00006E ED               [12]  416 	mov	a,r5
+      00006F 60 B0            [24]  417 	jz	00114$
+      000071                        418 00110$:
+                                    419 ;	hw5.c:62: }else if(charCount==0){//first char
+      000071 EE               [12]  420 	mov	a,r6
+      000072 4F               [12]  421 	orl	a,r7
+                                    422 ;	hw5.c:64: charCount=1;
+      000073 70 18            [24]  423 	jnz	00107$
+      000075 7E 01            [12]  424 	mov	r6,#0x01
+      000077 FF               [12]  425 	mov	r7,a
+                                    426 ;	hw5.c:65: firstP1=P2= bitmapL;
+      000078 8C A0            [24]  427 	mov	_P2,r4
+      00007A 8C*01            [24]  428 	mov	_Main_firstP1_1_11,r4
+                                    429 ;	hw5.c:66: firstP2=P3= bitmapH;
+      00007C 8D B0            [24]  430 	mov	_P3,r5
+      00007E 8D*02            [24]  431 	mov	_Main_firstP2_1_11,r5
+                                    432 ;	hw5.c:67: delay();
+      000080 C0 07            [24]  433 	push	ar7
+      000082 C0 06            [24]  434 	push	ar6
+      000084 12r06rAA         [24]  435 	lcall	_delay
+      000087 D0 06            [24]  436 	pop	ar6
+      000089 D0 07            [24]  437 	pop	ar7
+      00008B 80 94            [24]  438 	sjmp	00114$
+      00008D                        439 00107$:
+                                    440 ;	hw5.c:68: }else if(charCount==1){//second char
+      00008D BE 01 91         [24]  441 	cjne	r6,#0x01,00114$
+      000090 BF 00 8E         [24]  442 	cjne	r7,#0x00,00114$
+                                    443 ;	hw5.c:70: charCount=0;
+      000093 7E 00            [12]  444 	mov	r6,#0x00
+      000095 7F 00            [12]  445 	mov	r7,#0x00
+                                    446 ;	hw5.c:71: secondP1=P2= bitmapL;
+      000097 8C A0            [24]  447 	mov	_P2,r4
+                                    448 ;	hw5.c:72: secondP2=P3= bitmapH;		
+      000099 8D B0            [24]  449 	mov	_P3,r5
+                                    450 ;	hw5.c:73: chr1=firstChar(firstP1,firstP2);
+      00009B 85*02*00         [24]  451 	mov	_firstChar_PARM_2,_Main_firstP2_1_11
+      00009E 85*01 82         [24]  452 	mov	dpl,_Main_firstP1_1_11
+      0000A1 C0 07            [24]  453 	push	ar7
+      0000A3 C0 06            [24]  454 	push	ar6
+      0000A5 C0 05            [24]  455 	push	ar5
+      0000A7 C0 04            [24]  456 	push	ar4
+      0000A9 12r00rC1         [24]  457 	lcall	_firstChar
+      0000AC D0 04            [24]  458 	pop	ar4
+      0000AE D0 05            [24]  459 	pop	ar5
+                                    460 ;	hw5.c:74: secondChar(chr1,secondP1,secondP2);//secondChar() returns the input of this time
+      0000B0 8C*03            [24]  461 	mov	_secondChar_PARM_2,r4
+      0000B2 8D*04            [24]  462 	mov	_secondChar_PARM_3,r5
+      0000B4 12r01r4F         [24]  463 	lcall	_secondChar
+                                    464 ;	hw5.c:75: delay();
+      0000B7 12r06rAA         [24]  465 	lcall	_delay
+      0000BA D0 06            [24]  466 	pop	ar6
+      0000BC D0 07            [24]  467 	pop	ar7
+      0000BE 02r00r21         [24]  468 	ljmp	00114$
+                                    469 ;------------------------------------------------------------
+                                    470 ;Allocation info for local variables in function 'firstChar'
+                                    471 ;------------------------------------------------------------
+                                    472 ;fstP2                     Allocated with name '_firstChar_PARM_2'
+                                    473 ;fstP1                     Allocated to registers r7 
+                                    474 ;------------------------------------------------------------
+                                    475 ;	hw5.c:82: char firstChar(char fstP1,char fstP2){	
+                                    476 ;	-----------------------------------------
+                                    477 ;	 function firstChar
+                                    478 ;	-----------------------------------------
+      0000C1                        479 _firstChar:
+      0000C1 AF 82            [24]  480 	mov	r7,dpl
+                                    481 ;	hw5.c:83: if (fstP2!=0x00){//1,2,3,4
+      0000C3 E5*00            [12]  482 	mov	a,_firstChar_PARM_2
+      0000C5 60 2F            [24]  483 	jz	00136$
+                                    484 ;	hw5.c:84: if((fstP2>>3)&1){
+      0000C7 E5*00            [12]  485 	mov	a,_firstChar_PARM_2
+      0000C9 A2 E3            [12]  486 	mov	c,acc[3]
+      0000CB E4               [12]  487 	clr	a
+      0000CC 33               [12]  488 	rlc	a
+      0000CD FE               [12]  489 	mov	r6,a
+      0000CE 60 04            [24]  490 	jz	00110$
+                                    491 ;	hw5.c:85: return '1';
+      0000D0 75 82 31         [24]  492 	mov	dpl,#0x31
+      0000D3 22               [24]  493 	ret
+      0000D4                        494 00110$:
+                                    495 ;	hw5.c:86: }else if((fstP2>>2)&1){
+      0000D4 E5*00            [12]  496 	mov	a,_firstChar_PARM_2
+      0000D6 03               [12]  497 	rr	a
+      0000D7 03               [12]  498 	rr	a
+      0000D8 54 01            [12]  499 	anl	a,#0x01
+      0000DA FE               [12]  500 	mov	r6,a
+      0000DB 60 04            [24]  501 	jz	00107$
+                                    502 ;	hw5.c:87: return '2';
+      0000DD 75 82 32         [24]  503 	mov	dpl,#0x32
+      0000E0 22               [24]  504 	ret
+      0000E1                        505 00107$:
+                                    506 ;	hw5.c:88: }else if((fstP2>>1)&1){
+      0000E1 E5*00            [12]  507 	mov	a,_firstChar_PARM_2
+      0000E3 03               [12]  508 	rr	a
+      0000E4 54 01            [12]  509 	anl	a,#0x01
+      0000E6 FE               [12]  510 	mov	r6,a
+      0000E7 60 04            [24]  511 	jz	00104$
+                                    512 ;	hw5.c:89: return '3';
+      0000E9 75 82 33         [24]  513 	mov	dpl,#0x33
+      0000EC 22               [24]  514 	ret
+      0000ED                        515 00104$:
+                                    516 ;	hw5.c:90: }else if((fstP2)&1){
+      0000ED E5*00            [12]  517 	mov	a,_firstChar_PARM_2
+      0000EF 30 E0 5C         [24]  518 	jnb	acc.0,00138$
+                                    519 ;	hw5.c:91: return '4';
+      0000F2 75 82 34         [24]  520 	mov	dpl,#0x34
+      0000F5 22               [24]  521 	ret
+      0000F6                        522 00136$:
+                                    523 ;	hw5.c:95: if((fstP1>>7)&1){
+      0000F6 EF               [12]  524 	mov	a,r7
+      0000F7 23               [12]  525 	rl	a
+      0000F8 54 01            [12]  526 	anl	a,#0x01
+      0000FA FE               [12]  527 	mov	r6,a
+      0000FB 60 04            [24]  528 	jz	00133$
+                                    529 ;	hw5.c:96: return '5';
+      0000FD 75 82 35         [24]  530 	mov	dpl,#0x35
+      000100 22               [24]  531 	ret
+      000101                        532 00133$:
+                                    533 ;	hw5.c:97: }else if((fstP1>>6)&1){
+      000101 EF               [12]  534 	mov	a,r7
+      000102 23               [12]  535 	rl	a
+      000103 23               [12]  536 	rl	a
+      000104 54 01            [12]  537 	anl	a,#0x01
+      000106 FE               [12]  538 	mov	r6,a
+      000107 60 04            [24]  539 	jz	00130$
+                                    540 ;	hw5.c:98: return '6';
+      000109 75 82 36         [24]  541 	mov	dpl,#0x36
+      00010C 22               [24]  542 	ret
+      00010D                        543 00130$:
+                                    544 ;	hw5.c:99: }else if((fstP1>>5)&1){
+      00010D EF               [12]  545 	mov	a,r7
+      00010E A2 E5            [12]  546 	mov	c,acc[5]
+      000110 E4               [12]  547 	clr	a
+      000111 33               [12]  548 	rlc	a
+      000112 FE               [12]  549 	mov	r6,a
+      000113 60 04            [24]  550 	jz	00127$
+                                    551 ;	hw5.c:100: return '7';
+      000115 75 82 37         [24]  552 	mov	dpl,#0x37
+      000118 22               [24]  553 	ret
+      000119                        554 00127$:
+                                    555 ;	hw5.c:101: }else if((fstP1>>4)&1){
+      000119 EF               [12]  556 	mov	a,r7
+      00011A C4               [12]  557 	swap	a
+      00011B 54 01            [12]  558 	anl	a,#0x01
+      00011D FE               [12]  559 	mov	r6,a
+      00011E 60 04            [24]  560 	jz	00124$
+                                    561 ;	hw5.c:102: return '8';
+      000120 75 82 38         [24]  562 	mov	dpl,#0x38
+      000123 22               [24]  563 	ret
+      000124                        564 00124$:
+                                    565 ;	hw5.c:103: }else if((fstP1>>3)&1){
+      000124 EF               [12]  566 	mov	a,r7
+      000125 A2 E3            [12]  567 	mov	c,acc[3]
+      000127 E4               [12]  568 	clr	a
+      000128 33               [12]  569 	rlc	a
+      000129 FE               [12]  570 	mov	r6,a
+      00012A 60 04            [24]  571 	jz	00121$
+                                    572 ;	hw5.c:104: return '9';
+      00012C 75 82 39         [24]  573 	mov	dpl,#0x39
+      00012F 22               [24]  574 	ret
+      000130                        575 00121$:
+                                    576 ;	hw5.c:105: }else if((fstP1>>2)&1){
+      000130 EF               [12]  577 	mov	a,r7
+      000131 03               [12]  578 	rr	a
+      000132 03               [12]  579 	rr	a
+      000133 54 01            [12]  580 	anl	a,#0x01
+      000135 FE               [12]  581 	mov	r6,a
+      000136 60 04            [24]  582 	jz	00118$
+                                    583 ;	hw5.c:106: return '*';
+      000138 75 82 2A         [24]  584 	mov	dpl,#0x2A
+      00013B 22               [24]  585 	ret
+      00013C                        586 00118$:
+                                    587 ;	hw5.c:107: }else if((fstP1>>1)&1){
+      00013C EF               [12]  588 	mov	a,r7
+      00013D 03               [12]  589 	rr	a
+      00013E 54 01            [12]  590 	anl	a,#0x01
+      000140 FE               [12]  591 	mov	r6,a
+      000141 60 04            [24]  592 	jz	00115$
+                                    593 ;	hw5.c:108: return '0';
+      000143 75 82 30         [24]  594 	mov	dpl,#0x30
+      000146 22               [24]  595 	ret
+      000147                        596 00115$:
+                                    597 ;	hw5.c:109: }else if((fstP1)&1){
+      000147 EF               [12]  598 	mov	a,r7
+      000148 30 E0 03         [24]  599 	jnb	acc.0,00138$
+                                    600 ;	hw5.c:110: return '#';
+      00014B 75 82 23         [24]  601 	mov	dpl,#0x23
+      00014E                        602 00138$:
+      00014E 22               [24]  603 	ret
+                                    604 ;------------------------------------------------------------
+                                    605 ;Allocation info for local variables in function 'secondChar'
+                                    606 ;------------------------------------------------------------
+                                    607 ;sndP1                     Allocated with name '_secondChar_PARM_2'
+                                    608 ;sndP2                     Allocated with name '_secondChar_PARM_3'
+                                    609 ;chr1                      Allocated to registers r7 
+                                    610 ;chr2                      Allocated to registers r6 
+                                    611 ;i                         Allocated to registers 
+                                    612 ;------------------------------------------------------------
+                                    613 ;	hw5.c:114: void secondChar(char chr1,char sndP1,char sndP2){
+                                    614 ;	-----------------------------------------
+                                    615 ;	 function secondChar
+                                    616 ;	-----------------------------------------
+      00014F                        617 _secondChar:
+      00014F AF 82            [24]  618 	mov	r7,dpl
+                                    619 ;	hw5.c:117: chr2=firstChar(sndP1,sndP2);
+      000151 85*04*00         [24]  620 	mov	_firstChar_PARM_2,_secondChar_PARM_3
+      000154 85*03 82         [24]  621 	mov	dpl,_secondChar_PARM_2
+      000157 C0 07            [24]  622 	push	ar7
+      000159 12r00rC1         [24]  623 	lcall	_firstChar
+      00015C AE 82            [24]  624 	mov	r6,dpl
+      00015E D0 07            [24]  625 	pop	ar7
+                                    626 ;	hw5.c:118: if (chr1=='2'){
+      000160 BF 32 02         [24]  627 	cjne	r7,#0x32,00606$
+      000163 80 03            [24]  628 	sjmp	00607$
+      000165                        629 00606$:
+      000165 02r01rC2         [24]  630 	ljmp	00347$
+      000168                        631 00607$:
+                                    632 ;	hw5.c:119: if (chr2=='1'){
+      000168 BE 31 0B         [24]  633 	cjne	r6,#0x31,00117$
+                                    634 ;	hw5.c:120: sendString("A");
+      00016B 90r00r00         [24]  635 	mov	dptr,#___str_0
+      00016E 75 F0 80         [24]  636 	mov	b,#0x80
+      000171 12r06r7F         [24]  637 	lcall	_sendString
+      000174 80 47            [24]  638 	sjmp	00118$
+      000176                        639 00117$:
+                                    640 ;	hw5.c:121: }else if (chr2=='2'){
+      000176 BE 32 0B         [24]  641 	cjne	r6,#0x32,00114$
+                                    642 ;	hw5.c:122: sendString("B");
+      000179 90r00r02         [24]  643 	mov	dptr,#___str_1
+      00017C 75 F0 80         [24]  644 	mov	b,#0x80
+      00017F 12r06r7F         [24]  645 	lcall	_sendString
+      000182 80 39            [24]  646 	sjmp	00118$
+      000184                        647 00114$:
+                                    648 ;	hw5.c:123: }else if (chr2=='3'){
+      000184 BE 33 0B         [24]  649 	cjne	r6,#0x33,00111$
+                                    650 ;	hw5.c:124: sendString("C");
+      000187 90r00r04         [24]  651 	mov	dptr,#___str_2
+      00018A 75 F0 80         [24]  652 	mov	b,#0x80
+      00018D 12r06r7F         [24]  653 	lcall	_sendString
+      000190 80 2B            [24]  654 	sjmp	00118$
+      000192                        655 00111$:
+                                    656 ;	hw5.c:125: }else if (chr2=='4'){
+      000192 BE 34 0B         [24]  657 	cjne	r6,#0x34,00108$
+                                    658 ;	hw5.c:126: sendString("a");
+      000195 90r00r06         [24]  659 	mov	dptr,#___str_3
+      000198 75 F0 80         [24]  660 	mov	b,#0x80
+      00019B 12r06r7F         [24]  661 	lcall	_sendString
+      00019E 80 1D            [24]  662 	sjmp	00118$
+      0001A0                        663 00108$:
+                                    664 ;	hw5.c:127: }else if (chr2=='5'){
+      0001A0 BE 35 0B         [24]  665 	cjne	r6,#0x35,00105$
+                                    666 ;	hw5.c:128: sendString("b");
+      0001A3 90r00r08         [24]  667 	mov	dptr,#___str_4
+      0001A6 75 F0 80         [24]  668 	mov	b,#0x80
+      0001A9 12r06r7F         [24]  669 	lcall	_sendString
+      0001AC 80 0F            [24]  670 	sjmp	00118$
+      0001AE                        671 00105$:
+                                    672 ;	hw5.c:129: }else if (chr2=='6'){		
+      0001AE BE 36 0B         [24]  673 	cjne	r6,#0x36,00102$
+                                    674 ;	hw5.c:130: sendString("c");
+      0001B1 90r00r0A         [24]  675 	mov	dptr,#___str_5
+      0001B4 75 F0 80         [24]  676 	mov	b,#0x80
+      0001B7 12r06r7F         [24]  677 	lcall	_sendString
+      0001BA 80 01            [24]  678 	sjmp	00118$
+      0001BC                        679 00102$:
+                                    680 ;	hw5.c:131: }else return;
+      0001BC 22               [24]  681 	ret
+      0001BD                        682 00118$:
+                                    683 ;	hw5.c:132: curAddr++;
+      0001BD 05*00            [12]  684 	inc	_curAddr
+      0001BF 02r05rF2         [24]  685 	ljmp	00348$
+      0001C2                        686 00347$:
+                                    687 ;	hw5.c:134: }else if (chr1=='3'){
+      0001C2 BF 33 02         [24]  688 	cjne	r7,#0x33,00620$
+      0001C5 80 03            [24]  689 	sjmp	00621$
+      0001C7                        690 00620$:
+      0001C7 02r02r24         [24]  691 	ljmp	00344$
+      0001CA                        692 00621$:
+                                    693 ;	hw5.c:135: if (chr2=='1'){
+      0001CA BE 31 0B         [24]  694 	cjne	r6,#0x31,00135$
+                                    695 ;	hw5.c:136: sendString("D");
+      0001CD 90r00r0C         [24]  696 	mov	dptr,#___str_6
+      0001D0 75 F0 80         [24]  697 	mov	b,#0x80
+      0001D3 12r06r7F         [24]  698 	lcall	_sendString
+      0001D6 80 47            [24]  699 	sjmp	00136$
+      0001D8                        700 00135$:
+                                    701 ;	hw5.c:137: }else if (chr2=='2'){
+      0001D8 BE 32 0B         [24]  702 	cjne	r6,#0x32,00132$
+                                    703 ;	hw5.c:138: sendString("E");
+      0001DB 90r00r0E         [24]  704 	mov	dptr,#___str_7
+      0001DE 75 F0 80         [24]  705 	mov	b,#0x80
+      0001E1 12r06r7F         [24]  706 	lcall	_sendString
+      0001E4 80 39            [24]  707 	sjmp	00136$
+      0001E6                        708 00132$:
+                                    709 ;	hw5.c:139: }else if (chr2=='3'){
+      0001E6 BE 33 0B         [24]  710 	cjne	r6,#0x33,00129$
+                                    711 ;	hw5.c:140: sendString("F");
+      0001E9 90r00r10         [24]  712 	mov	dptr,#___str_8
+      0001EC 75 F0 80         [24]  713 	mov	b,#0x80
+      0001EF 12r06r7F         [24]  714 	lcall	_sendString
+      0001F2 80 2B            [24]  715 	sjmp	00136$
+      0001F4                        716 00129$:
+                                    717 ;	hw5.c:141: }else if (chr2=='4'){
+      0001F4 BE 34 0B         [24]  718 	cjne	r6,#0x34,00126$
+                                    719 ;	hw5.c:142: sendString("d");
+      0001F7 90r00r12         [24]  720 	mov	dptr,#___str_9
+      0001FA 75 F0 80         [24]  721 	mov	b,#0x80
+      0001FD 12r06r7F         [24]  722 	lcall	_sendString
+      000200 80 1D            [24]  723 	sjmp	00136$
+      000202                        724 00126$:
+                                    725 ;	hw5.c:143: }else if (chr2=='5'){
+      000202 BE 35 0B         [24]  726 	cjne	r6,#0x35,00123$
+                                    727 ;	hw5.c:144: sendString("e");
+      000205 90r00r14         [24]  728 	mov	dptr,#___str_10
+      000208 75 F0 80         [24]  729 	mov	b,#0x80
+      00020B 12r06r7F         [24]  730 	lcall	_sendString
+      00020E 80 0F            [24]  731 	sjmp	00136$
+      000210                        732 00123$:
+                                    733 ;	hw5.c:145: }else if (chr2=='6'){
+      000210 BE 36 0B         [24]  734 	cjne	r6,#0x36,00120$
+                                    735 ;	hw5.c:146: sendString("f");
+      000213 90r00r16         [24]  736 	mov	dptr,#___str_11
+      000216 75 F0 80         [24]  737 	mov	b,#0x80
+      000219 12r06r7F         [24]  738 	lcall	_sendString
+      00021C 80 01            [24]  739 	sjmp	00136$
+      00021E                        740 00120$:
+                                    741 ;	hw5.c:147: }else return;
+      00021E 22               [24]  742 	ret
+      00021F                        743 00136$:
+                                    744 ;	hw5.c:148: curAddr++;
+      00021F 05*00            [12]  745 	inc	_curAddr
+      000221 02r05rF2         [24]  746 	ljmp	00348$
+      000224                        747 00344$:
+                                    748 ;	hw5.c:149: }else if (chr1=='4'){
+      000224 BF 34 02         [24]  749 	cjne	r7,#0x34,00634$
+      000227 80 03            [24]  750 	sjmp	00635$
+      000229                        751 00634$:
+      000229 02r02r86         [24]  752 	ljmp	00341$
+      00022C                        753 00635$:
+                                    754 ;	hw5.c:150: if (chr2=='1'){
+      00022C BE 31 0B         [24]  755 	cjne	r6,#0x31,00153$
+                                    756 ;	hw5.c:151: sendString("G");
+      00022F 90r00r18         [24]  757 	mov	dptr,#___str_12
+      000232 75 F0 80         [24]  758 	mov	b,#0x80
+      000235 12r06r7F         [24]  759 	lcall	_sendString
+      000238 80 47            [24]  760 	sjmp	00154$
+      00023A                        761 00153$:
+                                    762 ;	hw5.c:152: }else if (chr2=='2'){
+      00023A BE 32 0B         [24]  763 	cjne	r6,#0x32,00150$
+                                    764 ;	hw5.c:153: sendString("H");
+      00023D 90r00r1A         [24]  765 	mov	dptr,#___str_13
+      000240 75 F0 80         [24]  766 	mov	b,#0x80
+      000243 12r06r7F         [24]  767 	lcall	_sendString
+      000246 80 39            [24]  768 	sjmp	00154$
+      000248                        769 00150$:
+                                    770 ;	hw5.c:154: }else if (chr2=='3'){
+      000248 BE 33 0B         [24]  771 	cjne	r6,#0x33,00147$
+                                    772 ;	hw5.c:155: sendString("I");
+      00024B 90r00r1C         [24]  773 	mov	dptr,#___str_14
+      00024E 75 F0 80         [24]  774 	mov	b,#0x80
+      000251 12r06r7F         [24]  775 	lcall	_sendString
+      000254 80 2B            [24]  776 	sjmp	00154$
+      000256                        777 00147$:
+                                    778 ;	hw5.c:156: }else if (chr2=='4'){
+      000256 BE 34 0B         [24]  779 	cjne	r6,#0x34,00144$
+                                    780 ;	hw5.c:157: sendString("G");
+      000259 90r00r18         [24]  781 	mov	dptr,#___str_12
+      00025C 75 F0 80         [24]  782 	mov	b,#0x80
+      00025F 12r06r7F         [24]  783 	lcall	_sendString
+      000262 80 1D            [24]  784 	sjmp	00154$
+      000264                        785 00144$:
+                                    786 ;	hw5.c:158: }else if (chr2=='5'){
+      000264 BE 35 0B         [24]  787 	cjne	r6,#0x35,00141$
+                                    788 ;	hw5.c:159: sendString("H");
+      000267 90r00r1A         [24]  789 	mov	dptr,#___str_13
+      00026A 75 F0 80         [24]  790 	mov	b,#0x80
+      00026D 12r06r7F         [24]  791 	lcall	_sendString
+      000270 80 0F            [24]  792 	sjmp	00154$
+      000272                        793 00141$:
+                                    794 ;	hw5.c:160: }else if (chr2=='6'){
+      000272 BE 36 0B         [24]  795 	cjne	r6,#0x36,00138$
+                                    796 ;	hw5.c:161: sendString("I");
+      000275 90r00r1C         [24]  797 	mov	dptr,#___str_14
+      000278 75 F0 80         [24]  798 	mov	b,#0x80
+      00027B 12r06r7F         [24]  799 	lcall	_sendString
+      00027E 80 01            [24]  800 	sjmp	00154$
+      000280                        801 00138$:
+                                    802 ;	hw5.c:162: }else return;
+      000280 22               [24]  803 	ret
+      000281                        804 00154$:
+                                    805 ;	hw5.c:163: curAddr++;
+      000281 05*00            [12]  806 	inc	_curAddr
+      000283 02r05rF2         [24]  807 	ljmp	00348$
+      000286                        808 00341$:
+                                    809 ;	hw5.c:164: }else if (chr1=='5'){
+      000286 BF 35 02         [24]  810 	cjne	r7,#0x35,00648$
+      000289 80 03            [24]  811 	sjmp	00649$
+      00028B                        812 00648$:
+      00028B 02r02rE8         [24]  813 	ljmp	00338$
+      00028E                        814 00649$:
+                                    815 ;	hw5.c:165: if (chr2=='1'){
+      00028E BE 31 0B         [24]  816 	cjne	r6,#0x31,00171$
+                                    817 ;	hw5.c:166: sendString("J");
+      000291 90r00r1E         [24]  818 	mov	dptr,#___str_15
+      000294 75 F0 80         [24]  819 	mov	b,#0x80
+      000297 12r06r7F         [24]  820 	lcall	_sendString
+      00029A 80 47            [24]  821 	sjmp	00172$
+      00029C                        822 00171$:
+                                    823 ;	hw5.c:167: }else if (chr2=='2'){
+      00029C BE 32 0B         [24]  824 	cjne	r6,#0x32,00168$
+                                    825 ;	hw5.c:168: sendString("K");
+      00029F 90r00r20         [24]  826 	mov	dptr,#___str_16
+      0002A2 75 F0 80         [24]  827 	mov	b,#0x80
+      0002A5 12r06r7F         [24]  828 	lcall	_sendString
+      0002A8 80 39            [24]  829 	sjmp	00172$
+      0002AA                        830 00168$:
+                                    831 ;	hw5.c:169: }else if (chr2=='3'){
+      0002AA BE 33 0B         [24]  832 	cjne	r6,#0x33,00165$
+                                    833 ;	hw5.c:170: sendString("L");
+      0002AD 90r00r22         [24]  834 	mov	dptr,#___str_17
+      0002B0 75 F0 80         [24]  835 	mov	b,#0x80
+      0002B3 12r06r7F         [24]  836 	lcall	_sendString
+      0002B6 80 2B            [24]  837 	sjmp	00172$
+      0002B8                        838 00165$:
+                                    839 ;	hw5.c:171: }else if (chr2=='4'){
+      0002B8 BE 34 0B         [24]  840 	cjne	r6,#0x34,00162$
+                                    841 ;	hw5.c:172: sendString("j");
+      0002BB 90r00r24         [24]  842 	mov	dptr,#___str_18
+      0002BE 75 F0 80         [24]  843 	mov	b,#0x80
+      0002C1 12r06r7F         [24]  844 	lcall	_sendString
+      0002C4 80 1D            [24]  845 	sjmp	00172$
+      0002C6                        846 00162$:
+                                    847 ;	hw5.c:173: }else if (chr2=='5'){
+      0002C6 BE 35 0B         [24]  848 	cjne	r6,#0x35,00159$
+                                    849 ;	hw5.c:174: sendString("k");
+      0002C9 90r00r26         [24]  850 	mov	dptr,#___str_19
+      0002CC 75 F0 80         [24]  851 	mov	b,#0x80
+      0002CF 12r06r7F         [24]  852 	lcall	_sendString
+      0002D2 80 0F            [24]  853 	sjmp	00172$
+      0002D4                        854 00159$:
+                                    855 ;	hw5.c:175: }else if (chr2=='6'){
+      0002D4 BE 36 0B         [24]  856 	cjne	r6,#0x36,00156$
+                                    857 ;	hw5.c:176: sendString("l");
+      0002D7 90r00r28         [24]  858 	mov	dptr,#___str_20
+      0002DA 75 F0 80         [24]  859 	mov	b,#0x80
+      0002DD 12r06r7F         [24]  860 	lcall	_sendString
+      0002E0 80 01            [24]  861 	sjmp	00172$
+      0002E2                        862 00156$:
+                                    863 ;	hw5.c:177: }else return;
+      0002E2 22               [24]  864 	ret
+      0002E3                        865 00172$:
+                                    866 ;	hw5.c:178: curAddr++;
+      0002E3 05*00            [12]  867 	inc	_curAddr
+      0002E5 02r05rF2         [24]  868 	ljmp	00348$
+      0002E8                        869 00338$:
+                                    870 ;	hw5.c:179: }else if (chr1=='6'){
+      0002E8 BF 36 02         [24]  871 	cjne	r7,#0x36,00662$
+      0002EB 80 03            [24]  872 	sjmp	00663$
+      0002ED                        873 00662$:
+      0002ED 02r03r4A         [24]  874 	ljmp	00335$
+      0002F0                        875 00663$:
+                                    876 ;	hw5.c:180: if (chr2=='1'){
+      0002F0 BE 31 0B         [24]  877 	cjne	r6,#0x31,00189$
+                                    878 ;	hw5.c:181: sendString("M");
+      0002F3 90r00r2A         [24]  879 	mov	dptr,#___str_21
+      0002F6 75 F0 80         [24]  880 	mov	b,#0x80
+      0002F9 12r06r7F         [24]  881 	lcall	_sendString
+      0002FC 80 47            [24]  882 	sjmp	00190$
+      0002FE                        883 00189$:
+                                    884 ;	hw5.c:182: }else if (chr2=='2'){
+      0002FE BE 32 0B         [24]  885 	cjne	r6,#0x32,00186$
+                                    886 ;	hw5.c:183: sendString("N");
+      000301 90r00r2C         [24]  887 	mov	dptr,#___str_22
+      000304 75 F0 80         [24]  888 	mov	b,#0x80
+      000307 12r06r7F         [24]  889 	lcall	_sendString
+      00030A 80 39            [24]  890 	sjmp	00190$
+      00030C                        891 00186$:
+                                    892 ;	hw5.c:184: }else if (chr2=='3'){
+      00030C BE 33 0B         [24]  893 	cjne	r6,#0x33,00183$
+                                    894 ;	hw5.c:185: sendString("O");
+      00030F 90r00r2E         [24]  895 	mov	dptr,#___str_23
+      000312 75 F0 80         [24]  896 	mov	b,#0x80
+      000315 12r06r7F         [24]  897 	lcall	_sendString
+      000318 80 2B            [24]  898 	sjmp	00190$
+      00031A                        899 00183$:
+                                    900 ;	hw5.c:186: }else if (chr2=='4'){
+      00031A BE 34 0B         [24]  901 	cjne	r6,#0x34,00180$
+                                    902 ;	hw5.c:187: sendString("m");
+      00031D 90r00r30         [24]  903 	mov	dptr,#___str_24
+      000320 75 F0 80         [24]  904 	mov	b,#0x80
+      000323 12r06r7F         [24]  905 	lcall	_sendString
+      000326 80 1D            [24]  906 	sjmp	00190$
+      000328                        907 00180$:
+                                    908 ;	hw5.c:188: }else if (chr2=='5'){
+      000328 BE 35 0B         [24]  909 	cjne	r6,#0x35,00177$
+                                    910 ;	hw5.c:189: sendString("n");
+      00032B 90r00r32         [24]  911 	mov	dptr,#___str_25
+      00032E 75 F0 80         [24]  912 	mov	b,#0x80
+      000331 12r06r7F         [24]  913 	lcall	_sendString
+      000334 80 0F            [24]  914 	sjmp	00190$
+      000336                        915 00177$:
+                                    916 ;	hw5.c:190: }else if (chr2=='6'){
+      000336 BE 36 0B         [24]  917 	cjne	r6,#0x36,00174$
+                                    918 ;	hw5.c:191: sendString("o");
+      000339 90r00r34         [24]  919 	mov	dptr,#___str_26
+      00033C 75 F0 80         [24]  920 	mov	b,#0x80
+      00033F 12r06r7F         [24]  921 	lcall	_sendString
+      000342 80 01            [24]  922 	sjmp	00190$
+      000344                        923 00174$:
+                                    924 ;	hw5.c:192: }else return;
+      000344 22               [24]  925 	ret
+      000345                        926 00190$:
+                                    927 ;	hw5.c:193: curAddr++;
+      000345 05*00            [12]  928 	inc	_curAddr
+      000347 02r05rF2         [24]  929 	ljmp	00348$
+      00034A                        930 00335$:
+                                    931 ;	hw5.c:194: }else if (chr1=='7'){
+      00034A BF 37 02         [24]  932 	cjne	r7,#0x37,00676$
+      00034D 80 03            [24]  933 	sjmp	00677$
+      00034F                        934 00676$:
+      00034F 02r03rCA         [24]  935 	ljmp	00332$
+      000352                        936 00677$:
+                                    937 ;	hw5.c:195: if (chr2=='1'){
+      000352 BE 31 0C         [24]  938 	cjne	r6,#0x31,00213$
+                                    939 ;	hw5.c:196: sendString("P");
+      000355 90r00r36         [24]  940 	mov	dptr,#___str_27
+      000358 75 F0 80         [24]  941 	mov	b,#0x80
+      00035B 12r06r7F         [24]  942 	lcall	_sendString
+      00035E 02r03rC5         [24]  943 	ljmp	00214$
+      000361                        944 00213$:
+                                    945 ;	hw5.c:197: }else if (chr2=='2'){
+      000361 BE 32 0C         [24]  946 	cjne	r6,#0x32,00210$
+                                    947 ;	hw5.c:198: sendString("Q");
+      000364 90r00r38         [24]  948 	mov	dptr,#___str_28
+      000367 75 F0 80         [24]  949 	mov	b,#0x80
+      00036A 12r06r7F         [24]  950 	lcall	_sendString
+      00036D 02r03rC5         [24]  951 	ljmp	00214$
+      000370                        952 00210$:
+                                    953 ;	hw5.c:199: }else if (chr2=='3'){
+      000370 BE 33 0B         [24]  954 	cjne	r6,#0x33,00207$
+                                    955 ;	hw5.c:200: sendString("R");
+      000373 90r00r3A         [24]  956 	mov	dptr,#___str_29
+      000376 75 F0 80         [24]  957 	mov	b,#0x80
+      000379 12r06r7F         [24]  958 	lcall	_sendString
+      00037C 80 47            [24]  959 	sjmp	00214$
+      00037E                        960 00207$:
+                                    961 ;	hw5.c:201: }else if (chr2=='4'){
+      00037E BE 34 0B         [24]  962 	cjne	r6,#0x34,00204$
+                                    963 ;	hw5.c:202: sendString("S");
+      000381 90r00r3C         [24]  964 	mov	dptr,#___str_30
+      000384 75 F0 80         [24]  965 	mov	b,#0x80
+      000387 12r06r7F         [24]  966 	lcall	_sendString
+      00038A 80 39            [24]  967 	sjmp	00214$
+      00038C                        968 00204$:
+                                    969 ;	hw5.c:203: }else if (chr2=='5'){
+      00038C BE 35 0B         [24]  970 	cjne	r6,#0x35,00201$
+                                    971 ;	hw5.c:204: sendString("p");
+      00038F 90r00r3E         [24]  972 	mov	dptr,#___str_31
+      000392 75 F0 80         [24]  973 	mov	b,#0x80
+      000395 12r06r7F         [24]  974 	lcall	_sendString
+      000398 80 2B            [24]  975 	sjmp	00214$
+      00039A                        976 00201$:
+                                    977 ;	hw5.c:205: }else if (chr2=='6'){
+      00039A BE 36 0B         [24]  978 	cjne	r6,#0x36,00198$
+                                    979 ;	hw5.c:206: sendString("q");
+      00039D 90r00r40         [24]  980 	mov	dptr,#___str_32
+      0003A0 75 F0 80         [24]  981 	mov	b,#0x80
+      0003A3 12r06r7F         [24]  982 	lcall	_sendString
+      0003A6 80 1D            [24]  983 	sjmp	00214$
+      0003A8                        984 00198$:
+                                    985 ;	hw5.c:207: }else if (chr2=='7'){
+      0003A8 BE 37 0B         [24]  986 	cjne	r6,#0x37,00195$
+                                    987 ;	hw5.c:208: sendString("r");
+      0003AB 90r00r42         [24]  988 	mov	dptr,#___str_33
+      0003AE 75 F0 80         [24]  989 	mov	b,#0x80
+      0003B1 12r06r7F         [24]  990 	lcall	_sendString
+      0003B4 80 0F            [24]  991 	sjmp	00214$
+      0003B6                        992 00195$:
+                                    993 ;	hw5.c:209: }else if (chr2=='8'){
+      0003B6 BE 38 0B         [24]  994 	cjne	r6,#0x38,00192$
+                                    995 ;	hw5.c:210: sendString("s");
+      0003B9 90r00r44         [24]  996 	mov	dptr,#___str_34
+      0003BC 75 F0 80         [24]  997 	mov	b,#0x80
+      0003BF 12r06r7F         [24]  998 	lcall	_sendString
+      0003C2 80 01            [24]  999 	sjmp	00214$
+      0003C4                       1000 00192$:
+                                   1001 ;	hw5.c:211: }else return;
+      0003C4 22               [24] 1002 	ret
+      0003C5                       1003 00214$:
+                                   1004 ;	hw5.c:212: curAddr++;
+      0003C5 05*00            [12] 1005 	inc	_curAddr
+      0003C7 02r05rF2         [24] 1006 	ljmp	00348$
+      0003CA                       1007 00332$:
+                                   1008 ;	hw5.c:213: }else if (chr1=='8'){
+      0003CA BF 38 02         [24] 1009 	cjne	r7,#0x38,00694$
+      0003CD 80 03            [24] 1010 	sjmp	00695$
+      0003CF                       1011 00694$:
+      0003CF 02r04r2C         [24] 1012 	ljmp	00329$
+      0003D2                       1013 00695$:
+                                   1014 ;	hw5.c:214: if (chr2=='1'){
+      0003D2 BE 31 0B         [24] 1015 	cjne	r6,#0x31,00231$
+                                   1016 ;	hw5.c:215: sendString("T");
+      0003D5 90r00r46         [24] 1017 	mov	dptr,#___str_35
+      0003D8 75 F0 80         [24] 1018 	mov	b,#0x80
+      0003DB 12r06r7F         [24] 1019 	lcall	_sendString
+      0003DE 80 47            [24] 1020 	sjmp	00232$
+      0003E0                       1021 00231$:
+                                   1022 ;	hw5.c:216: }else if (chr2=='2'){
+      0003E0 BE 32 0B         [24] 1023 	cjne	r6,#0x32,00228$
+                                   1024 ;	hw5.c:217: sendString("U");
+      0003E3 90r00r48         [24] 1025 	mov	dptr,#___str_36
+      0003E6 75 F0 80         [24] 1026 	mov	b,#0x80
+      0003E9 12r06r7F         [24] 1027 	lcall	_sendString
+      0003EC 80 39            [24] 1028 	sjmp	00232$
+      0003EE                       1029 00228$:
+                                   1030 ;	hw5.c:218: }else if (chr2=='3'){
+      0003EE BE 33 0B         [24] 1031 	cjne	r6,#0x33,00225$
+                                   1032 ;	hw5.c:219: sendString("V");
+      0003F1 90r00r4A         [24] 1033 	mov	dptr,#___str_37
+      0003F4 75 F0 80         [24] 1034 	mov	b,#0x80
+      0003F7 12r06r7F         [24] 1035 	lcall	_sendString
+      0003FA 80 2B            [24] 1036 	sjmp	00232$
+      0003FC                       1037 00225$:
+                                   1038 ;	hw5.c:220: }else if (chr2=='4'){
+      0003FC BE 34 0B         [24] 1039 	cjne	r6,#0x34,00222$
+                                   1040 ;	hw5.c:221: sendString("t");
+      0003FF 90r00r4C         [24] 1041 	mov	dptr,#___str_38
+      000402 75 F0 80         [24] 1042 	mov	b,#0x80
+      000405 12r06r7F         [24] 1043 	lcall	_sendString
+      000408 80 1D            [24] 1044 	sjmp	00232$
+      00040A                       1045 00222$:
+                                   1046 ;	hw5.c:222: }else if (chr2=='5'){
+      00040A BE 35 0B         [24] 1047 	cjne	r6,#0x35,00219$
+                                   1048 ;	hw5.c:223: sendString("u");
+      00040D 90r00r4E         [24] 1049 	mov	dptr,#___str_39
+      000410 75 F0 80         [24] 1050 	mov	b,#0x80
+      000413 12r06r7F         [24] 1051 	lcall	_sendString
+      000416 80 0F            [24] 1052 	sjmp	00232$
+      000418                       1053 00219$:
+                                   1054 ;	hw5.c:224: }else if (chr2=='6'){
+      000418 BE 36 0B         [24] 1055 	cjne	r6,#0x36,00216$
+                                   1056 ;	hw5.c:225: sendString("v");
+      00041B 90r00r50         [24] 1057 	mov	dptr,#___str_40
+      00041E 75 F0 80         [24] 1058 	mov	b,#0x80
+      000421 12r06r7F         [24] 1059 	lcall	_sendString
+      000424 80 01            [24] 1060 	sjmp	00232$
+      000426                       1061 00216$:
+                                   1062 ;	hw5.c:226: }else return;
+      000426 22               [24] 1063 	ret
+      000427                       1064 00232$:
+                                   1065 ;	hw5.c:227: curAddr++;
+      000427 05*00            [12] 1066 	inc	_curAddr
+      000429 02r05rF2         [24] 1067 	ljmp	00348$
+      00042C                       1068 00329$:
+                                   1069 ;	hw5.c:228: }else if (chr1=='9'){
+      00042C BF 39 02         [24] 1070 	cjne	r7,#0x39,00708$
+      00042F 80 03            [24] 1071 	sjmp	00709$
+      000431                       1072 00708$:
+      000431 02r04rAC         [24] 1073 	ljmp	00326$
+      000434                       1074 00709$:
+                                   1075 ;	hw5.c:229: if (chr2=='1'){
+      000434 BE 31 0C         [24] 1076 	cjne	r6,#0x31,00255$
+                                   1077 ;	hw5.c:230: sendString("W");
+      000437 90r00r52         [24] 1078 	mov	dptr,#___str_41
+      00043A 75 F0 80         [24] 1079 	mov	b,#0x80
+      00043D 12r06r7F         [24] 1080 	lcall	_sendString
+      000440 02r04rA7         [24] 1081 	ljmp	00256$
+      000443                       1082 00255$:
+                                   1083 ;	hw5.c:231: }else if (chr2=='2'){
+      000443 BE 32 0C         [24] 1084 	cjne	r6,#0x32,00252$
+                                   1085 ;	hw5.c:232: sendString("X");
+      000446 90r00r54         [24] 1086 	mov	dptr,#___str_42
+      000449 75 F0 80         [24] 1087 	mov	b,#0x80
+      00044C 12r06r7F         [24] 1088 	lcall	_sendString
+      00044F 02r04rA7         [24] 1089 	ljmp	00256$
+      000452                       1090 00252$:
+                                   1091 ;	hw5.c:233: }else if (chr2=='3'){
+      000452 BE 33 0B         [24] 1092 	cjne	r6,#0x33,00249$
+                                   1093 ;	hw5.c:234: sendString("Y");
+      000455 90r00r56         [24] 1094 	mov	dptr,#___str_43
+      000458 75 F0 80         [24] 1095 	mov	b,#0x80
+      00045B 12r06r7F         [24] 1096 	lcall	_sendString
+      00045E 80 47            [24] 1097 	sjmp	00256$
+      000460                       1098 00249$:
+                                   1099 ;	hw5.c:235: }else if (chr2=='4'){
+      000460 BE 34 0B         [24] 1100 	cjne	r6,#0x34,00246$
+                                   1101 ;	hw5.c:236: sendString("Z");
+      000463 90r00r58         [24] 1102 	mov	dptr,#___str_44
+      000466 75 F0 80         [24] 1103 	mov	b,#0x80
+      000469 12r06r7F         [24] 1104 	lcall	_sendString
+      00046C 80 39            [24] 1105 	sjmp	00256$
+      00046E                       1106 00246$:
+                                   1107 ;	hw5.c:237: }else if (chr2=='5'){
+      00046E BE 35 0B         [24] 1108 	cjne	r6,#0x35,00243$
+                                   1109 ;	hw5.c:238: sendString("w");
+      000471 90r00r5A         [24] 1110 	mov	dptr,#___str_45
+      000474 75 F0 80         [24] 1111 	mov	b,#0x80
+      000477 12r06r7F         [24] 1112 	lcall	_sendString
+      00047A 80 2B            [24] 1113 	sjmp	00256$
+      00047C                       1114 00243$:
+                                   1115 ;	hw5.c:239: }else if (chr2=='6'){
+      00047C BE 36 0B         [24] 1116 	cjne	r6,#0x36,00240$
+                                   1117 ;	hw5.c:240: sendString("x");
+      00047F 90r00r5C         [24] 1118 	mov	dptr,#___str_46
+      000482 75 F0 80         [24] 1119 	mov	b,#0x80
+      000485 12r06r7F         [24] 1120 	lcall	_sendString
+      000488 80 1D            [24] 1121 	sjmp	00256$
+      00048A                       1122 00240$:
+                                   1123 ;	hw5.c:241: }else if (chr2=='7'){
+      00048A BE 37 0B         [24] 1124 	cjne	r6,#0x37,00237$
+                                   1125 ;	hw5.c:242: sendString("y");
+      00048D 90r00r5E         [24] 1126 	mov	dptr,#___str_47
+      000490 75 F0 80         [24] 1127 	mov	b,#0x80
+      000493 12r06r7F         [24] 1128 	lcall	_sendString
+      000496 80 0F            [24] 1129 	sjmp	00256$
+      000498                       1130 00237$:
+                                   1131 ;	hw5.c:243: }else if (chr2=='8'){
+      000498 BE 38 0B         [24] 1132 	cjne	r6,#0x38,00234$
+                                   1133 ;	hw5.c:244: sendString("z");
+      00049B 90r00r60         [24] 1134 	mov	dptr,#___str_48
+      00049E 75 F0 80         [24] 1135 	mov	b,#0x80
+      0004A1 12r06r7F         [24] 1136 	lcall	_sendString
+      0004A4 80 01            [24] 1137 	sjmp	00256$
+      0004A6                       1138 00234$:
+                                   1139 ;	hw5.c:245: }else return;
+      0004A6 22               [24] 1140 	ret
+      0004A7                       1141 00256$:
+                                   1142 ;	hw5.c:246: curAddr++;
+      0004A7 05*00            [12] 1143 	inc	_curAddr
+      0004A9 02r05rF2         [24] 1144 	ljmp	00348$
+      0004AC                       1145 00326$:
+                                   1146 ;	hw5.c:247: }else if (chr1=='*'){
+      0004AC BF 2A 02         [24] 1147 	cjne	r7,#0x2A,00726$
+      0004AF 80 03            [24] 1148 	sjmp	00727$
+      0004B1                       1149 00726$:
+      0004B1 02r05r36         [24] 1150 	ljmp	00323$
+      0004B4                       1151 00727$:
+                                   1152 ;	hw5.c:248: if (chr2=='2'){//up
+      0004B4 BE 32 0C         [24] 1153 	cjne	r6,#0x32,00281$
+                                   1154 ;	hw5.c:249: curAddr=curAddr&0x0F;
+      0004B7 53*00 0F         [24] 1155 	anl	_curAddr,#0x0F
+                                   1156 ;	hw5.c:250: setDdRamAddress(curAddr);
+      0004BA 85*00 82         [24] 1157 	mov	dpl,_curAddr
+      0004BD 12r06r41         [24] 1158 	lcall	_setDdRamAddress
+      0004C0 02r05rF2         [24] 1159 	ljmp	00348$
+      0004C3                       1160 00281$:
+                                   1161 ;	hw5.c:251: }else if (chr2=='4'){//left
+      0004C3 BE 34 15         [24] 1162 	cjne	r6,#0x34,00278$
+                                   1163 ;	hw5.c:252: if(curAddr==0x00 || curAddr==0x40) return;
+      0004C6 E5*00            [12] 1164 	mov	a,_curAddr
+      0004C8 60 05            [24] 1165 	jz	00257$
+      0004CA 74 40            [12] 1166 	mov	a,#0x40
+      0004CC B5*00 01         [24] 1167 	cjne	a,_curAddr,00258$
+      0004CF                       1168 00257$:
+      0004CF 22               [24] 1169 	ret
+      0004D0                       1170 00258$:
+                                   1171 ;	hw5.c:253: curAddr--;
+      0004D0 15*00            [12] 1172 	dec	_curAddr
+                                   1173 ;	hw5.c:254: setDdRamAddress(curAddr);
+      0004D2 85*00 82         [24] 1174 	mov	dpl,_curAddr
+      0004D5 12r06r41         [24] 1175 	lcall	_setDdRamAddress
+      0004D8 02r05rF2         [24] 1176 	ljmp	00348$
+      0004DB                       1177 00278$:
+                                   1178 ;	hw5.c:255: }else if (chr2=='5'){//space
+      0004DB BE 35 0E         [24] 1179 	cjne	r6,#0x35,00275$
+                                   1180 ;	hw5.c:256: sendString(" ");
+      0004DE 90r00r62         [24] 1181 	mov	dptr,#___str_49
+      0004E1 75 F0 80         [24] 1182 	mov	b,#0x80
+      0004E4 12r06r7F         [24] 1183 	lcall	_sendString
+                                   1184 ;	hw5.c:257: curAddr++;
+      0004E7 05*00            [12] 1185 	inc	_curAddr
+      0004E9 02r05rF2         [24] 1186 	ljmp	00348$
+      0004EC                       1187 00275$:
+                                   1188 ;	hw5.c:258: }else if (chr2=='6'){//right
+      0004EC BE 36 14         [24] 1189 	cjne	r6,#0x36,00272$
+                                   1190 ;	hw5.c:259: if((curAddr&0x0F)==0x0F) return;
+      0004EF AD*00            [24] 1191 	mov	r5,_curAddr
+      0004F1 53 05 0F         [24] 1192 	anl	ar5,#0x0F
+      0004F4 BD 0F 01         [24] 1193 	cjne	r5,#0x0F,00261$
+      0004F7 22               [24] 1194 	ret
+      0004F8                       1195 00261$:
+                                   1196 ;	hw5.c:260: curAddr++;
+      0004F8 05*00            [12] 1197 	inc	_curAddr
+                                   1198 ;	hw5.c:261: setDdRamAddress(curAddr);
+      0004FA 85*00 82         [24] 1199 	mov	dpl,_curAddr
+      0004FD 12r06r41         [24] 1200 	lcall	_setDdRamAddress
+      000500 02r05rF2         [24] 1201 	ljmp	00348$
+      000503                       1202 00272$:
+                                   1203 ;	hw5.c:262: }else if (chr2=='8'){//down
+      000503 BE 38 11         [24] 1204 	cjne	r6,#0x38,00269$
+                                   1205 ;	hw5.c:263: curAddr=(curAddr&0x0F) |0x40;
+      000506 74 0F            [12] 1206 	mov	a,#0x0F
+      000508 55*00            [12] 1207 	anl	a,_curAddr
+      00050A 44 40            [12] 1208 	orl	a,#0x40
+      00050C F5*00            [12] 1209 	mov	_curAddr,a
+                                   1210 ;	hw5.c:264: setDdRamAddress(curAddr);
+      00050E 85*00 82         [24] 1211 	mov	dpl,_curAddr
+      000511 12r06r41         [24] 1212 	lcall	_setDdRamAddress
+      000514 02r05rF2         [24] 1213 	ljmp	00348$
+      000517                       1214 00269$:
+                                   1215 ;	hw5.c:265: }else if (chr2=='9'){//newline
+      000517 BE 39 0C         [24] 1216 	cjne	r6,#0x39,00266$
+                                   1217 ;	hw5.c:266: curAddr=0x40;
+      00051A 75*00 40         [24] 1218 	mov	_curAddr,#0x40
+                                   1219 ;	hw5.c:267: setDdRamAddress(curAddr);
+      00051D 75 82 40         [24] 1220 	mov	dpl,#0x40
+      000520 12r06r41         [24] 1221 	lcall	_setDdRamAddress
+      000523 02r05rF2         [24] 1222 	ljmp	00348$
+      000526                       1223 00266$:
+                                   1224 ;	hw5.c:268: }else if (chr2=='1'){//return Home
+      000526 BE 31 0C         [24] 1225 	cjne	r6,#0x31,00263$
+                                   1226 ;	hw5.c:269: curAddr=0x00;
+      000529 75*00 00         [24] 1227 	mov	_curAddr,#0x00
+                                   1228 ;	hw5.c:270: setDdRamAddress(curAddr);
+      00052C 75 82 00         [24] 1229 	mov	dpl,#0x00
+      00052F 12r06r41         [24] 1230 	lcall	_setDdRamAddress
+      000532 02r05rF2         [24] 1231 	ljmp	00348$
+      000535                       1232 00263$:
+                                   1233 ;	hw5.c:271: }else return;
+      000535 22               [24] 1234 	ret
+      000536                       1235 00323$:
+                                   1236 ;	hw5.c:273: }else if (chr1=='#'){
+      000536 BF 23 02         [24] 1237 	cjne	r7,#0x23,00747$
+      000539 80 03            [24] 1238 	sjmp	00748$
+      00053B                       1239 00747$:
+      00053B 02r05rF1         [24] 1240 	ljmp	00320$
+      00053E                       1241 00748$:
+                                   1242 ;	hw5.c:274: if (chr2=='1'){
+      00053E BE 31 0C         [24] 1243 	cjne	r6,#0x31,00317$
+                                   1244 ;	hw5.c:275: sendString("1");
+      000541 90r00r64         [24] 1245 	mov	dptr,#___str_50
+      000544 75 F0 80         [24] 1246 	mov	b,#0x80
+      000547 12r06r7F         [24] 1247 	lcall	_sendString
+      00054A 02r05rED         [24] 1248 	ljmp	00318$
+      00054D                       1249 00317$:
+                                   1250 ;	hw5.c:276: }else if (chr2=='2'){
+      00054D BE 32 0C         [24] 1251 	cjne	r6,#0x32,00314$
+                                   1252 ;	hw5.c:277: sendString("2");
+      000550 90r00r66         [24] 1253 	mov	dptr,#___str_51
+      000553 75 F0 80         [24] 1254 	mov	b,#0x80
+      000556 12r06r7F         [24] 1255 	lcall	_sendString
+      000559 02r05rED         [24] 1256 	ljmp	00318$
+      00055C                       1257 00314$:
+                                   1258 ;	hw5.c:278: }else if (chr2=='3'){
+      00055C BE 33 0C         [24] 1259 	cjne	r6,#0x33,00311$
+                                   1260 ;	hw5.c:279: sendString("3");
+      00055F 90r00r68         [24] 1261 	mov	dptr,#___str_52
+      000562 75 F0 80         [24] 1262 	mov	b,#0x80
+      000565 12r06r7F         [24] 1263 	lcall	_sendString
+      000568 02r05rED         [24] 1264 	ljmp	00318$
+      00056B                       1265 00311$:
+                                   1266 ;	hw5.c:280: }else if (chr2=='4'){
+      00056B BE 34 0C         [24] 1267 	cjne	r6,#0x34,00308$
+                                   1268 ;	hw5.c:281: sendString("4");
+      00056E 90r00r6A         [24] 1269 	mov	dptr,#___str_53
+      000571 75 F0 80         [24] 1270 	mov	b,#0x80
+      000574 12r06r7F         [24] 1271 	lcall	_sendString
+      000577 02r05rED         [24] 1272 	ljmp	00318$
+      00057A                       1273 00308$:
+                                   1274 ;	hw5.c:282: }else if (chr2=='5'){
+      00057A BE 35 0C         [24] 1275 	cjne	r6,#0x35,00305$
+                                   1276 ;	hw5.c:283: sendString("5");
+      00057D 90r00r6C         [24] 1277 	mov	dptr,#___str_54
+      000580 75 F0 80         [24] 1278 	mov	b,#0x80
+      000583 12r06r7F         [24] 1279 	lcall	_sendString
+      000586 02r05rED         [24] 1280 	ljmp	00318$
+      000589                       1281 00305$:
+                                   1282 ;	hw5.c:284: }else if (chr2=='6'){
+      000589 BE 36 0C         [24] 1283 	cjne	r6,#0x36,00302$
+                                   1284 ;	hw5.c:285: sendString("6");
+      00058C 90r00r6E         [24] 1285 	mov	dptr,#___str_55
+      00058F 75 F0 80         [24] 1286 	mov	b,#0x80
+      000592 12r06r7F         [24] 1287 	lcall	_sendString
+      000595 02r05rED         [24] 1288 	ljmp	00318$
+      000598                       1289 00302$:
+                                   1290 ;	hw5.c:286: }else if (chr2=='7'){
+      000598 BE 37 0B         [24] 1291 	cjne	r6,#0x37,00299$
+                                   1292 ;	hw5.c:287: sendString("7");
+      00059B 90r00r70         [24] 1293 	mov	dptr,#___str_56
+      00059E 75 F0 80         [24] 1294 	mov	b,#0x80
+      0005A1 12r06r7F         [24] 1295 	lcall	_sendString
+      0005A4 80 47            [24] 1296 	sjmp	00318$
+      0005A6                       1297 00299$:
+                                   1298 ;	hw5.c:288: }else if (chr2=='8'){
+      0005A6 BE 38 0B         [24] 1299 	cjne	r6,#0x38,00296$
+                                   1300 ;	hw5.c:289: sendString("8");
+      0005A9 90r00r72         [24] 1301 	mov	dptr,#___str_57
+      0005AC 75 F0 80         [24] 1302 	mov	b,#0x80
+      0005AF 12r06r7F         [24] 1303 	lcall	_sendString
+      0005B2 80 39            [24] 1304 	sjmp	00318$
+      0005B4                       1305 00296$:
+                                   1306 ;	hw5.c:290: }else if (chr2=='9'){
+      0005B4 BE 39 0B         [24] 1307 	cjne	r6,#0x39,00293$
+                                   1308 ;	hw5.c:291: sendString("9");
+      0005B7 90r00r74         [24] 1309 	mov	dptr,#___str_58
+      0005BA 75 F0 80         [24] 1310 	mov	b,#0x80
+      0005BD 12r06r7F         [24] 1311 	lcall	_sendString
+      0005C0 80 2B            [24] 1312 	sjmp	00318$
+      0005C2                       1313 00293$:
+                                   1314 ;	hw5.c:292: }else if (chr2=='*'){
+      0005C2 BE 2A 0B         [24] 1315 	cjne	r6,#0x2A,00290$
+                                   1316 ;	hw5.c:293: sendString("*");
+      0005C5 90r00r76         [24] 1317 	mov	dptr,#___str_59
+      0005C8 75 F0 80         [24] 1318 	mov	b,#0x80
+      0005CB 12r06r7F         [24] 1319 	lcall	_sendString
+      0005CE 80 1D            [24] 1320 	sjmp	00318$
+      0005D0                       1321 00290$:
+                                   1322 ;	hw5.c:294: }else if (chr2=='0'){
+      0005D0 BE 30 0B         [24] 1323 	cjne	r6,#0x30,00287$
+                                   1324 ;	hw5.c:295: sendString("0");
+      0005D3 90r00r78         [24] 1325 	mov	dptr,#___str_60
+      0005D6 75 F0 80         [24] 1326 	mov	b,#0x80
+      0005D9 12r06r7F         [24] 1327 	lcall	_sendString
+      0005DC 80 0F            [24] 1328 	sjmp	00318$
+      0005DE                       1329 00287$:
+                                   1330 ;	hw5.c:296: }else if (chr2=='#'){
+      0005DE BE 23 0B         [24] 1331 	cjne	r6,#0x23,00284$
+                                   1332 ;	hw5.c:297: sendString("#");
+      0005E1 90r00r7A         [24] 1333 	mov	dptr,#___str_61
+      0005E4 75 F0 80         [24] 1334 	mov	b,#0x80
+      0005E7 12r06r7F         [24] 1335 	lcall	_sendString
+      0005EA 80 01            [24] 1336 	sjmp	00318$
+      0005EC                       1337 00284$:
+                                   1338 ;	hw5.c:298: }else return;
+      0005EC 22               [24] 1339 	ret
+      0005ED                       1340 00318$:
+                                   1341 ;	hw5.c:299: curAddr++;
+      0005ED 05*00            [12] 1342 	inc	_curAddr
+      0005EF 80 01            [24] 1343 	sjmp	00348$
+      0005F1                       1344 00320$:
+                                   1345 ;	hw5.c:300: }else return;
+      0005F1 22               [24] 1346 	ret
+      0005F2                       1347 00348$:
+                                   1348 ;	hw5.c:302: if((curAddr==0x10)||(curAddr==0x50)){
+      0005F2 74 10            [12] 1349 	mov	a,#0x10
+      0005F4 B5*00 02         [24] 1350 	cjne	a,_curAddr,00773$
+      0005F7 80 05            [24] 1351 	sjmp	00349$
+      0005F9                       1352 00773$:
+      0005F9 74 50            [12] 1353 	mov	a,#0x50
+      0005FB B5*00 08         [24] 1354 	cjne	a,_curAddr,00352$
+      0005FE                       1355 00349$:
+                                   1356 ;	hw5.c:303: curAddr--;
+      0005FE 15*00            [12] 1357 	dec	_curAddr
+                                   1358 ;	hw5.c:304: setDdRamAddress(curAddr);
+      000600 85*00 82         [24] 1359 	mov	dpl,_curAddr
+      000603 02r06r41         [24] 1360 	ljmp	_setDdRamAddress
+      000606                       1361 00352$:
+      000606 22               [24] 1362 	ret
+                                   1363 ;------------------------------------------------------------
+                                   1364 ;Allocation info for local variables in function 'IRWRITE'
+                                   1365 ;------------------------------------------------------------
+                                   1366 ;addr                      Allocated to registers r7 
+                                   1367 ;------------------------------------------------------------
+                                   1368 ;	hw5.c:311: void IRWRITE(char addr)
+                                   1369 ;	-----------------------------------------
+                                   1370 ;	 function IRWRITE
+                                   1371 ;	-----------------------------------------
+      000607                       1372 _IRWRITE:
+      000607 AF 82            [24] 1373 	mov	r7,dpl
+                                   1374 ;	hw5.c:313: P1= (addr & 0xf0) ;
+      000609 74 F0            [12] 1375 	mov	a,#0xF0
+      00060B 5F               [12] 1376 	anl	a,r7
+      00060C F5 90            [12] 1377 	mov	_P1,a
+                                   1378 ;	hw5.c:314: E = 1;
+      00060E D2 92            [12] 1379 	setb	_P1_2
+                                   1380 ;	hw5.c:315: E = 0;
+      000610 C2 92            [12] 1381 	clr	_P1_2
+                                   1382 ;	hw5.c:316: P1 = ((addr & 0x0f) << 4) | 0x00;
+      000612 53 07 0F         [24] 1383 	anl	ar7,#0x0F
+      000615 EF               [12] 1384 	mov	a,r7
+      000616 C4               [12] 1385 	swap	a
+      000617 54 F0            [12] 1386 	anl	a,#0xF0
+      000619 F5 90            [12] 1387 	mov	_P1,a
+                                   1388 ;	hw5.c:317: E = 1;
+      00061B D2 92            [12] 1389 	setb	_P1_2
+                                   1390 ;	hw5.c:318: E = 0;
+      00061D C2 92            [12] 1391 	clr	_P1_2
+                                   1392 ;	hw5.c:319: delay();
+      00061F 02r06rAA         [24] 1393 	ljmp	_delay
+                                   1394 ;------------------------------------------------------------
+                                   1395 ;Allocation info for local variables in function 'functionSet'
+                                   1396 ;------------------------------------------------------------
+                                   1397 ;	hw5.c:321: void functionSet(void) {//ok
+                                   1398 ;	-----------------------------------------
+                                   1399 ;	 function functionSet
+                                   1400 ;	-----------------------------------------
+      000622                       1401 _functionSet:
+                                   1402 ;	hw5.c:329: P1 = (P1&0x23) | 0x20;
+      000622 74 23            [12] 1403 	mov	a,#0x23
+      000624 55 90            [12] 1404 	anl	a,_P1
+      000626 44 20            [12] 1405 	orl	a,#0x20
+      000628 F5 90            [12] 1406 	mov	_P1,a
+                                   1407 ;	hw5.c:330: RS = 0;
+      00062A C2 93            [12] 1408 	clr	_P1_3
+                                   1409 ;	hw5.c:331: E = 1;
+      00062C D2 92            [12] 1410 	setb	_P1_2
+                                   1411 ;	hw5.c:332: E = 0;
+      00062E C2 92            [12] 1412 	clr	_P1_2
+                                   1413 ;	hw5.c:333: delay();
+      000630 12r06rAA         [24] 1414 	lcall	_delay
+                                   1415 ;	hw5.c:334: E = 1;
+      000633 D2 92            [12] 1416 	setb	_P1_2
+                                   1417 ;	hw5.c:335: E = 0;
+      000635 C2 92            [12] 1418 	clr	_P1_2
+                                   1419 ;	hw5.c:337: P1=0x80;
+      000637 75 90 80         [24] 1420 	mov	_P1,#0x80
+                                   1421 ;	hw5.c:338: E = 1;
+      00063A D2 92            [12] 1422 	setb	_P1_2
+                                   1423 ;	hw5.c:339: E = 0;
+      00063C C2 92            [12] 1424 	clr	_P1_2
+                                   1425 ;	hw5.c:340: delay();
+      00063E 02r06rAA         [24] 1426 	ljmp	_delay
+                                   1427 ;------------------------------------------------------------
+                                   1428 ;Allocation info for local variables in function 'setDdRamAddress'
+                                   1429 ;------------------------------------------------------------
+                                   1430 ;address                   Allocated to registers r7 
+                                   1431 ;------------------------------------------------------------
+                                   1432 ;	hw5.c:343: void setDdRamAddress(char address) {
+                                   1433 ;	-----------------------------------------
+                                   1434 ;	 function setDdRamAddress
+                                   1435 ;	-----------------------------------------
+      000641                       1436 _setDdRamAddress:
+      000641 AF 82            [24] 1437 	mov	r7,dpl
+                                   1438 ;	hw5.c:345: P1= (address & 0xf0) | 0x80;
+      000643 74 F0            [12] 1439 	mov	a,#0xF0
+      000645 5F               [12] 1440 	anl	a,r7
+      000646 44 80            [12] 1441 	orl	a,#0x80
+      000648 F5 90            [12] 1442 	mov	_P1,a
+                                   1443 ;	hw5.c:346: E = 1;
+      00064A D2 92            [12] 1444 	setb	_P1_2
+                                   1445 ;	hw5.c:347: E = 0;
+      00064C C2 92            [12] 1446 	clr	_P1_2
+                                   1447 ;	hw5.c:349: P1= (address & 0x0f) << 4;
+      00064E 53 07 0F         [24] 1448 	anl	ar7,#0x0F
+      000651 EF               [12] 1449 	mov	a,r7
+      000652 C4               [12] 1450 	swap	a
+      000653 54 F0            [12] 1451 	anl	a,#0xF0
+      000655 F5 90            [12] 1452 	mov	_P1,a
+                                   1453 ;	hw5.c:350: E = 1;
+      000657 D2 92            [12] 1454 	setb	_P1_2
+                                   1455 ;	hw5.c:351: E = 0;
+      000659 C2 92            [12] 1456 	clr	_P1_2
+                                   1457 ;	hw5.c:352: delay();
+      00065B 02r06rAA         [24] 1458 	ljmp	_delay
+                                   1459 ;------------------------------------------------------------
+                                   1460 ;Allocation info for local variables in function 'sendChar'
+                                   1461 ;------------------------------------------------------------
+                                   1462 ;c                         Allocated to registers r7 
+                                   1463 ;------------------------------------------------------------
+                                   1464 ;	hw5.c:354: void sendChar(char c) {
+                                   1465 ;	-----------------------------------------
+                                   1466 ;	 function sendChar
+                                   1467 ;	-----------------------------------------
+      00065E                       1468 _sendChar:
+      00065E AF 82            [24] 1469 	mov	r7,dpl
+                                   1470 ;	hw5.c:360: P1 = (c & 0xf0) | 0x08;
+      000660 74 F0            [12] 1471 	mov	a,#0xF0
+      000662 5F               [12] 1472 	anl	a,r7
+      000663 44 08            [12] 1473 	orl	a,#0x08
+      000665 F5 90            [12] 1474 	mov	_P1,a
+                                   1475 ;	hw5.c:361: E = 1;
+      000667 D2 92            [12] 1476 	setb	_P1_2
+                                   1477 ;	hw5.c:362: E = 0;
+      000669 C2 92            [12] 1478 	clr	_P1_2
+                                   1479 ;	hw5.c:368: P1=  ((c & 0x0f) << 4) | 0x08;
+      00066B 53 07 0F         [24] 1480 	anl	ar7,#0x0F
+      00066E EF               [12] 1481 	mov	a,r7
+      00066F C4               [12] 1482 	swap	a
+      000670 54 F0            [12] 1483 	anl	a,#0xF0
+      000672 FF               [12] 1484 	mov	r7,a
+      000673 74 08            [12] 1485 	mov	a,#0x08
+      000675 4F               [12] 1486 	orl	a,r7
+      000676 F5 90            [12] 1487 	mov	_P1,a
+                                   1488 ;	hw5.c:369: E = 1;
+      000678 D2 92            [12] 1489 	setb	_P1_2
+                                   1490 ;	hw5.c:370: E = 0;
+      00067A C2 92            [12] 1491 	clr	_P1_2
+                                   1492 ;	hw5.c:371: delay();
+      00067C 02r06rAA         [24] 1493 	ljmp	_delay
+                                   1494 ;------------------------------------------------------------
+                                   1495 ;Allocation info for local variables in function 'sendString'
+                                   1496 ;------------------------------------------------------------
+                                   1497 ;str                       Allocated to registers 
+                                   1498 ;p                         Allocated to registers r5 r6 r7 
+                                   1499 ;------------------------------------------------------------
+                                   1500 ;	hw5.c:374: void sendString(char* str) {
+                                   1501 ;	-----------------------------------------
+                                   1502 ;	 function sendString
+                                   1503 ;	-----------------------------------------
+      00067F                       1504 _sendString:
+      00067F AD 82            [24] 1505 	mov	r5,dpl
+      000681 AE 83            [24] 1506 	mov	r6,dph
+      000683 AF F0            [24] 1507 	mov	r7,b
+                                   1508 ;	hw5.c:381: for (p=str; *p; p++) {
+      000685                       1509 00103$:
+      000685 8D 82            [24] 1510 	mov	dpl,r5
+      000687 8E 83            [24] 1511 	mov	dph,r6
+      000689 8F F0            [24] 1512 	mov	b,r7
+      00068B 12r00r00         [24] 1513 	lcall	__gptrget
+      00068E FC               [12] 1514 	mov	r4,a
+      00068F 60 18            [24] 1515 	jz	00105$
+                                   1516 ;	hw5.c:382: sendChar(*p);
+      000691 8C 82            [24] 1517 	mov	dpl,r4
+      000693 C0 07            [24] 1518 	push	ar7
+      000695 C0 06            [24] 1519 	push	ar6
+      000697 C0 05            [24] 1520 	push	ar5
+      000699 12r06r5E         [24] 1521 	lcall	_sendChar
+      00069C D0 05            [24] 1522 	pop	ar5
+      00069E D0 06            [24] 1523 	pop	ar6
+      0006A0 D0 07            [24] 1524 	pop	ar7
+                                   1525 ;	hw5.c:381: for (p=str; *p; p++) {
+      0006A2 0D               [12] 1526 	inc	r5
+      0006A3 BD 00 DF         [24] 1527 	cjne	r5,#0x00,00103$
+      0006A6 0E               [12] 1528 	inc	r6
+      0006A7 80 DC            [24] 1529 	sjmp	00103$
+      0006A9                       1530 00105$:
+      0006A9 22               [24] 1531 	ret
+                                   1532 ;------------------------------------------------------------
+                                   1533 ;Allocation info for local variables in function 'delay'
+                                   1534 ;------------------------------------------------------------
+                                   1535 ;c                         Allocated to registers r7 
+                                   1536 ;------------------------------------------------------------
+                                   1537 ;	hw5.c:385: void delay(void) {
+                                   1538 ;	-----------------------------------------
+                                   1539 ;	 function delay
+                                   1540 ;	-----------------------------------------
+      0006AA                       1541 _delay:
+                                   1542 ;	hw5.c:387: for (c = 0; c < 50; c++);
+      0006AA 7F 32            [12] 1543 	mov	r7,#0x32
+      0006AC                       1544 00104$:
+      0006AC DF FE            [24] 1545 	djnz	r7,00104$
+      0006AE 22               [24] 1546 	ret
+                                   1547 ;------------------------------------------------------------
+                                   1548 ;Allocation info for local variables in function 'colScan'
+                                   1549 ;------------------------------------------------------------
+                                   1550 ;rowmask                   Allocated to registers 
+                                   1551 ;------------------------------------------------------------
+                                   1552 ;	hw5.c:389: char colScan(char rowmask) {
+                                   1553 ;	-----------------------------------------
+                                   1554 ;	 function colScan
+                                   1555 ;	-----------------------------------------
+      0006AF                       1556 _colScan:
+      0006AF 85 82 80         [24] 1557 	mov	_P0,dpl
+                                   1558 ;	hw5.c:391: return (~(P0>>4)) & 0x07;
+      0006B2 E5 80            [12] 1559 	mov	a,_P0
+      0006B4 C4               [12] 1560 	swap	a
+      0006B5 54 0F            [12] 1561 	anl	a,#0x0F
+      0006B7 F4               [12] 1562 	cpl	a
+      0006B8 FF               [12] 1563 	mov	r7,a
+      0006B9 74 07            [12] 1564 	mov	a,#0x07
+      0006BB 5F               [12] 1565 	anl	a,r7
+      0006BC F5 82            [12] 1566 	mov	dpl,a
+      0006BE 22               [24] 1567 	ret
+                                   1568 	.area CSEG    (CODE)
+                                   1569 	.area CONST   (CODE)
+      000000                       1570 ___str_0:
+      000000 41                    1571 	.ascii "A"
+      000001 00                    1572 	.db 0x00
+      000002                       1573 ___str_1:
+      000002 42                    1574 	.ascii "B"
+      000003 00                    1575 	.db 0x00
+      000004                       1576 ___str_2:
+      000004 43                    1577 	.ascii "C"
+      000005 00                    1578 	.db 0x00
+      000006                       1579 ___str_3:
+      000006 61                    1580 	.ascii "a"
+      000007 00                    1581 	.db 0x00
+      000008                       1582 ___str_4:
+      000008 62                    1583 	.ascii "b"
+      000009 00                    1584 	.db 0x00
+      00000A                       1585 ___str_5:
+      00000A 63                    1586 	.ascii "c"
+      00000B 00                    1587 	.db 0x00
+      00000C                       1588 ___str_6:
+      00000C 44                    1589 	.ascii "D"
+      00000D 00                    1590 	.db 0x00
+      00000E                       1591 ___str_7:
+      00000E 45                    1592 	.ascii "E"
+      00000F 00                    1593 	.db 0x00
+      000010                       1594 ___str_8:
+      000010 46                    1595 	.ascii "F"
+      000011 00                    1596 	.db 0x00
+      000012                       1597 ___str_9:
+      000012 64                    1598 	.ascii "d"
+      000013 00                    1599 	.db 0x00
+      000014                       1600 ___str_10:
+      000014 65                    1601 	.ascii "e"
+      000015 00                    1602 	.db 0x00
+      000016                       1603 ___str_11:
+      000016 66                    1604 	.ascii "f"
+      000017 00                    1605 	.db 0x00
+      000018                       1606 ___str_12:
+      000018 47                    1607 	.ascii "G"
+      000019 00                    1608 	.db 0x00
+      00001A                       1609 ___str_13:
+      00001A 48                    1610 	.ascii "H"
+      00001B 00                    1611 	.db 0x00
+      00001C                       1612 ___str_14:
+      00001C 49                    1613 	.ascii "I"
+      00001D 00                    1614 	.db 0x00
+      00001E                       1615 ___str_15:
+      00001E 4A                    1616 	.ascii "J"
+      00001F 00                    1617 	.db 0x00
+      000020                       1618 ___str_16:
+      000020 4B                    1619 	.ascii "K"
+      000021 00                    1620 	.db 0x00
+      000022                       1621 ___str_17:
+      000022 4C                    1622 	.ascii "L"
+      000023 00                    1623 	.db 0x00
+      000024                       1624 ___str_18:
+      000024 6A                    1625 	.ascii "j"
+      000025 00                    1626 	.db 0x00
+      000026                       1627 ___str_19:
+      000026 6B                    1628 	.ascii "k"
+      000027 00                    1629 	.db 0x00
+      000028                       1630 ___str_20:
+      000028 6C                    1631 	.ascii "l"
+      000029 00                    1632 	.db 0x00
+      00002A                       1633 ___str_21:
+      00002A 4D                    1634 	.ascii "M"
+      00002B 00                    1635 	.db 0x00
+      00002C                       1636 ___str_22:
+      00002C 4E                    1637 	.ascii "N"
+      00002D 00                    1638 	.db 0x00
+      00002E                       1639 ___str_23:
+      00002E 4F                    1640 	.ascii "O"
+      00002F 00                    1641 	.db 0x00
+      000030                       1642 ___str_24:
+      000030 6D                    1643 	.ascii "m"
+      000031 00                    1644 	.db 0x00
+      000032                       1645 ___str_25:
+      000032 6E                    1646 	.ascii "n"
+      000033 00                    1647 	.db 0x00
+      000034                       1648 ___str_26:
+      000034 6F                    1649 	.ascii "o"
+      000035 00                    1650 	.db 0x00
+      000036                       1651 ___str_27:
+      000036 50                    1652 	.ascii "P"
+      000037 00                    1653 	.db 0x00
+      000038                       1654 ___str_28:
+      000038 51                    1655 	.ascii "Q"
+      000039 00                    1656 	.db 0x00
+      00003A                       1657 ___str_29:
+      00003A 52                    1658 	.ascii "R"
+      00003B 00                    1659 	.db 0x00
+      00003C                       1660 ___str_30:
+      00003C 53                    1661 	.ascii "S"
+      00003D 00                    1662 	.db 0x00
+      00003E                       1663 ___str_31:
+      00003E 70                    1664 	.ascii "p"
+      00003F 00                    1665 	.db 0x00
+      000040                       1666 ___str_32:
+      000040 71                    1667 	.ascii "q"
+      000041 00                    1668 	.db 0x00
+      000042                       1669 ___str_33:
+      000042 72                    1670 	.ascii "r"
+      000043 00                    1671 	.db 0x00
+      000044                       1672 ___str_34:
+      000044 73                    1673 	.ascii "s"
+      000045 00                    1674 	.db 0x00
+      000046                       1675 ___str_35:
+      000046 54                    1676 	.ascii "T"
+      000047 00                    1677 	.db 0x00
+      000048                       1678 ___str_36:
+      000048 55                    1679 	.ascii "U"
+      000049 00                    1680 	.db 0x00
+      00004A                       1681 ___str_37:
+      00004A 56                    1682 	.ascii "V"
+      00004B 00                    1683 	.db 0x00
+      00004C                       1684 ___str_38:
+      00004C 74                    1685 	.ascii "t"
+      00004D 00                    1686 	.db 0x00
+      00004E                       1687 ___str_39:
+      00004E 75                    1688 	.ascii "u"
+      00004F 00                    1689 	.db 0x00
+      000050                       1690 ___str_40:
+      000050 76                    1691 	.ascii "v"
+      000051 00                    1692 	.db 0x00
+      000052                       1693 ___str_41:
+      000052 57                    1694 	.ascii "W"
+      000053 00                    1695 	.db 0x00
+      000054                       1696 ___str_42:
+      000054 58                    1697 	.ascii "X"
+      000055 00                    1698 	.db 0x00
+      000056                       1699 ___str_43:
+      000056 59                    1700 	.ascii "Y"
+      000057 00                    1701 	.db 0x00
+      000058                       1702 ___str_44:
+      000058 5A                    1703 	.ascii "Z"
+      000059 00                    1704 	.db 0x00
+      00005A                       1705 ___str_45:
+      00005A 77                    1706 	.ascii "w"
+      00005B 00                    1707 	.db 0x00
+      00005C                       1708 ___str_46:
+      00005C 78                    1709 	.ascii "x"
+      00005D 00                    1710 	.db 0x00
+      00005E                       1711 ___str_47:
+      00005E 79                    1712 	.ascii "y"
+      00005F 00                    1713 	.db 0x00
+      000060                       1714 ___str_48:
+      000060 7A                    1715 	.ascii "z"
+      000061 00                    1716 	.db 0x00
+      000062                       1717 ___str_49:
+      000062 20                    1718 	.ascii " "
+      000063 00                    1719 	.db 0x00
+      000064                       1720 ___str_50:
+      000064 31                    1721 	.ascii "1"
+      000065 00                    1722 	.db 0x00
+      000066                       1723 ___str_51:
+      000066 32                    1724 	.ascii "2"
+      000067 00                    1725 	.db 0x00
+      000068                       1726 ___str_52:
+      000068 33                    1727 	.ascii "3"
+      000069 00                    1728 	.db 0x00
+      00006A                       1729 ___str_53:
+      00006A 34                    1730 	.ascii "4"
+      00006B 00                    1731 	.db 0x00
+      00006C                       1732 ___str_54:
+      00006C 35                    1733 	.ascii "5"
+      00006D 00                    1734 	.db 0x00
+      00006E                       1735 ___str_55:
+      00006E 36                    1736 	.ascii "6"
+      00006F 00                    1737 	.db 0x00
+      000070                       1738 ___str_56:
+      000070 37                    1739 	.ascii "7"
+      000071 00                    1740 	.db 0x00
+      000072                       1741 ___str_57:
+      000072 38                    1742 	.ascii "8"
+      000073 00                    1743 	.db 0x00
+      000074                       1744 ___str_58:
+      000074 39                    1745 	.ascii "9"
+      000075 00                    1746 	.db 0x00
+      000076                       1747 ___str_59:
+      000076 2A                    1748 	.ascii "*"
+      000077 00                    1749 	.db 0x00
+      000078                       1750 ___str_60:
+      000078 30                    1751 	.ascii "0"
+      000079 00                    1752 	.db 0x00
+      00007A                       1753 ___str_61:
+      00007A 23                    1754 	.ascii "#"
+      00007B 00                    1755 	.db 0x00
+                                   1756 	.area XINIT   (CODE)
+                                   1757 	.area CABS    (ABS,CODE)
